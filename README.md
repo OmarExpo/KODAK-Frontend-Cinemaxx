@@ -1,11 +1,12 @@
 ## Kodak-Frontend-Cinemaxx
+
 Group members
 
 Adrian:-	https://github.com/adrian52x
 Dominic:-	https://github.com/Sintry1
 Karolina:-	https://github.com/shpomp
 Krishna Prasad Khanal:-	https://github.com/KrishnaKEA
-Omar:-	https://github.com/OmarExpo
+Omar S. Farah:-	https://github.com/OmarExpo
 
 
 <p style="font-size:20px">Here is our 1st Sprint release as of 05/12</p> 
@@ -19,7 +20,7 @@ Omar:-	https://github.com/OmarExpo
 You need git to clone both below repositories. You can get git from http://git-scm.com/.
 
 <br/>
-The frontend is running here: https://github.com/KrishnaKEA/Kodak-Frontend-Cinemaxx
+The frontend is running here: https://github.com/OmarExpo/KODAK-Frontend-Cinemaxx
 
 The GitHub link code for the backend api can be found here: https://github.com/adrian52x/cinema-app/tree/master/src/main/java/kodak/cinemaapp
 
