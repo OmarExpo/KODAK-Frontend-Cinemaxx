@@ -38,4 +38,4 @@ The design is simple and minimalistic in order for the web app to be intuitiv to
 The specific design choices we made were a clean layout with few elements and readable font sizes.
 
 
-For production deployment, here is our <strong>surge_sh</strong> link: 
+For production deployment, here is our <strong>surge_sh</strong> link: https://difficult-popcorn.surge.sh/
