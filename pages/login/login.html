@@ -1,0 +1,114 @@
+
+		<div class="formContainer">
+			<h1 class="user_name"></h1>
+			<div class="container">
+				<div class="row">
+					<div id="div1">
+						<div class="col-sm">
+							<div class="card" style="width: 30rem">
+								<div class="card-body">
+									<h1>User Login page</h1>
+									<label>Email</label>
+									<br />
+									<input type="text" id="email" />
+									<br />
+									<label>Password</label>
+                                    <br>
+									<input type="text" id="password" />
+                                    <hr>
+									<hr>
+									<button id="sign_inBtn">Login</button>
+									<button class="signOut">SignOut</button>
+									<hr>
+									<h1>Create an account.</h1>
+									<button id="signUp1">SignUp</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="display: none" id="div2">
+						<div class="col-sm">
+							<div class="card" style="width: 30rem">
+								<div class="card-body">
+									<h1>SignUp</h1>
+                                    <label>Name</label>
+									<br />
+									<input type="text" id="name_field" />
+									<br />
+                                    <label>phone number</label>
+									<br />
+									<input type="number" id="number_field" />
+									<br />
+                                    <label>Favourite sport</label>
+									<br />
+									<input type="text" id="fsport_field" />
+									<br />
+                                    <label>Address</label>
+									<br />
+									<input type="text" id="address_field" />
+									<br />
+
+									<label>Email</label>
+									<br>
+									<input type="text" id="email_field" />
+									<br>
+									<label>Password</label>
+                                    <br>
+									<input type="text" id="password_field" />
+                                    <br>
+									<hr>
+                                    <hr>
+									<button id="final-signup-btn">SignUp</button>
+									<button onclick="signOut()" id="signOut">SignOut</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div style="display: none" id="div3">
+			<div class="col-sm">
+				<div class="card" style="width: 30rem">
+					<div class="card-body">
+						<h1>User Dashboard</h1>
+    						<h2 id="username"></h2> 
+							<h2 id="useremail"></h2>
+							<h2 id="userphone"></h2>
+							<h2 id="usersport"></h2>
+							<h2 id="useraddress"></h2>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+
+		
+
+		
+<style>
+body {
+	background-color: aqua;
+}
+.card {
+	border: 1px solid blue;
+	border-radius: 5px;
+	display: block;
+	align-items: center;
+}
+.formContainer {
+	margin-left: 50%;
+	margin-top: 20%;
+	transform: translate(-50%, -20%);
+}
+#div3{
+	margin:auto;
+}
+</style>
+	
