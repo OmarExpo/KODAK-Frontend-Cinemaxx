@@ -40,3 +40,26 @@ The specific design choices we made were a clean layout with few elements and re
 
 
 For production deployment, here is our <strong>surge_sh</strong> link: https://difficult-popcorn.surge.sh/
+
+<table>
+  <thead>
+    <tr>
+      <td align="left">
+        :information_source: Information
+      </td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <ul>
+          <li>Please access the surge.sh link using 'http':
+              http://difficult-popcorn.surge.sh/
+          </li>
+          
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
