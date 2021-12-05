@@ -40,6 +40,7 @@ The specific design choices we made were a clean layout with few elements and re
 
 
 For production deployment, here is our <strong>surge_sh</strong> link: http://difficult-popcorn.surge.sh/
+
  <strong>Note</strong>: https is blocked as fetching occur through a non-secure APIs.
 
 
