@@ -39,16 +39,8 @@ The design is simple and minimalistic in order for the web app to be intuitiv to
 The specific design choices we made were a clean layout with few elements and readable font sizes.
 
 
-For production deployment, here is our <strong>surge_sh</strong> link: https://difficult-popcorn.surge.sh/
+For production deployment, here is our <strong>surge_sh</strong> link: http://difficult-popcorn.surge.sh/
+# Note: https is blocked as fetching occur through a non-secure APIs.
 
 
-    <body>
-      <div align="left">
-        :information_source: Information
-      </div>
-      <div>
-        <p>Please access the surge.sh link using 'http':
-              http://difficult-popcorn.surge.sh/ </p>
-      </div>
-   
-    </body>
+    
