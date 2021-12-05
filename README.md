@@ -42,7 +42,7 @@ The specific design choices we made were a clean layout with few elements and re
 For production deployment, here is our <strong>surge_sh</strong> link: https://difficult-popcorn.surge.sh/
 
 
-    
+    <body>
       <div align="left">
         :information_source: Information
       </div>
@@ -51,3 +51,4 @@ For production deployment, here is our <strong>surge_sh</strong> link: https://d
               http://difficult-popcorn.surge.sh/ </p>
       </div>
    
+    </body>
