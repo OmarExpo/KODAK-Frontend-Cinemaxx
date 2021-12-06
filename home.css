@@ -1,0 +1,94 @@
+body {
+	background-color: rgba(108, 108, 108, 0.8);
+}
+
+img {
+	height: 300px;
+	width: 100%;
+}
+.mainDiv {
+	width: 100%;
+}
+#slider {
+	overflow: hidden;
+}
+#slider figure {
+	position: relative;
+	width: 500%;
+	margin: 0;
+	left: 0;
+	animation: 25s slider infinite;
+}
+#slider figure img {
+	width: 20%;
+	float: left;
+}
+@keyframes slider {
+	0% {
+		left: 0;
+	}
+	20% {
+		left: 0;
+	}
+	25% {
+		left: -100%;
+	}
+	45% {
+		left: -100%;
+	}
+	50% {
+		left: -200%;
+	}
+	70% {
+		left: -200%;
+	}
+	75% {
+		left: -300%;
+	}
+	95% {
+		left: -300%;
+	}
+	100% {
+		left: -300%;
+	}
+}
+
+table,
+th,
+td {
+	border: 3px solid rgb(215, 215, 233);
+}
+button {
+	border-radius: 5px;
+}
+table th {
+	text-align: center;
+}
+
+.card {
+	background-color: rgb(202, 191, 189);
+}
+.card-title {
+	text-align: center;
+}
+ul {
+	list-style-type: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+html {
+	font-size: 16px;
+}
+
+td {
+	width: 20px;
+	height: 20px;
+
+	border: 1px solid rgb(255, 3, 3);
+}
+
+.table {
+	border-spacing: 2em;
+}
