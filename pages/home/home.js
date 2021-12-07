@@ -1,5 +1,3 @@
-var loginTab = document.getElementById("loginLink");
-
 export default () => {
 	const displayDiv = document.querySelector(".timeslots");
 	const div1object = document.querySelector("#div1");
@@ -7,6 +5,18 @@ export default () => {
 	const div3object = document.querySelector("#div3");
 	const div4object = document.querySelector("#div4");
 	const div5object = document.querySelector("#div5");
+	const login_nav_obj = document.querySelector("#loginLink");
+	const signout_btn_obj = document.querySelector("#sign_out_btn");
+	signout_btn_obj.addEventListener("click", () => {
+		localStorage.clear();
+	});
+
+	if ("username" in localStorage) {
+		login_nav_obj.innerHTML = localStorage["username"];
+	} else {
+		login_nav_obj.innerHTML = "Signin Or Register";
+	}
+
 	let today = new Date();
 	let nextday = new Date();
 	let freeseats_button_array = [];
@@ -16,7 +26,10 @@ export default () => {
 	let movieid = 0;
 	let moviename = "";
 
-	let id = 0;
+	let user_id = 0;
+
+	get_userid_by_email(localStorage.username);
+
 	let selectedDate = "";
 	let selectedSlot = "";
 	let selectedHall = "";
@@ -208,13 +221,37 @@ export default () => {
 				}
 				freeseats_button_array.forEach((btn) => {
 					btn.addEventListener("click", () => {
-						alert(btn.innerText);
+						console.log(user_id);
+
+						if (localStorage.username.length > 0) {
+							const connformation = confirm(
+								"Do you want to reserve seat number:- " + btn.innerText + "?"
+							);
+							if (connformation) {
+								const api4 = `http://54.146.239.101/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${btn.innerText}`;
+								fetch(api4)
+									.then((response) => response.json())
+									.then((reserved_seat) => {
+										alert(reserved_seat);
+									});
+							}
+						}
 					});
 				});
 			})
 
 			.catch((error) => {
 				console.log(error);
+			});
+	}
+
+	//------------------------------------------------------------------------------Getting userid from api using email-------------------------------------------------------
+	function get_userid_by_email(useremail) {
+		const api_for_id_toget_user = `http://54.146.239.101/users/${useremail}`;
+		fetch(api_for_id_toget_user)
+			.then((response) => response.json())
+			.then((userData) => {
+				user_id = userData.id;
 			});
 	}
 };

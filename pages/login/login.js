@@ -86,14 +86,16 @@ export default () => {
 
 	//active user to homepage
 	firebase.auth().onAuthStateChanged((user) => {
-		if (user) {
-			useremail = user.email;
-			userId = user.uid;
-			let logintab = document.querySelector("#loginLink");
-			logintab.innerHTML = user.email;
-		} else {
-			alert("No Active user Found");
-		}
+		setTimeout(() => {
+			if (user) {
+				useremail = user.email;
+				userId = user.uid;
+				localStorage.setItem("username", user.email);
+				window.location = "http://127.0.0.1:5501/";
+			} else {
+				alert("No Active user Found");
+			}
+		}, 5000);
 	});
 
 	function savetoDatabase(
