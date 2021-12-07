@@ -25,6 +25,7 @@ export default () => {
 	let month = today.getMonth();
 	let movieid = 0;
 	let moviename = "";
+	let selected_seat = 0;
 
 	let user_id = 0;
 
@@ -221,6 +222,7 @@ export default () => {
 				}
 				freeseats_button_array.forEach((btn) => {
 					btn.addEventListener("click", () => {
+						selected_seat = btn.innerText;
 						console.log(user_id);
 
 						if (localStorage.username.length > 0) {
@@ -232,7 +234,27 @@ export default () => {
 								fetch(api4)
 									.then((response) => response.json())
 									.then((reserved_seat) => {
-										alert(reserved_seat);
+										console.log(typeof reserved_seat);
+										const message_displayObj = document.querySelector(
+											".conformation_message"
+										);
+										const messageHeader = document.createElement("h3");
+										let objectLength = Object.keys(reserved_seat).length;
+										if (objectLength > 0) {
+											messageHeader.innerHTML = `You have reserved a seat number ${selected_seat},\n
+																		in hall no ${selectedHall} on ${selectedDate},${selectedSlot} show on\n
+																		to see the ${moviename} . Thank you for choosing us... have a nice show.`;
+
+											message_displayObj.appendChild(messageHeader);
+											btn.style.backgroundColor = "blue";
+											btn.disabled = "true";
+											trElement.style.display = "none";
+											
+
+										} else {
+											messageHeader.innerHTML = `Something went wrong- it seems you tried to book multiple ticket try for the another show.`;
+											message_displayObj.appendChild(messageHeader);
+										}
 									});
 							}
 						}
