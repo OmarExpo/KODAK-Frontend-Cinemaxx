@@ -68,7 +68,12 @@ export default () => {
 			.signInWithEmailAndPassword(email.value, password.value)
 			.then((cred) => {
 				useremail = cred.user.email;
-				showDetail();
+
+				if (useremail === "admin@gmail.com") {
+					window.location = "http://127.0.0.1:5501/#/admin";
+				} else {
+					window.location = "http://127.0.0.1:5501/";
+				}
 			})
 			.catch((error) => {
 				return console.log(error.message);
@@ -79,23 +84,28 @@ export default () => {
 
 	function signOut() {
 		auth.signOut();
-		//window.location.replace("index.html");
+		localStorage.clear();
+		window.location = "http://127.0.0.1:5501/";
 
 		alert("SignOut Successfully from System");
 	}
 
 	//active user to homepage
 	firebase.auth().onAuthStateChanged((user) => {
-		setTimeout(() => {
-			if (user) {
-				useremail = user.email;
-				userId = user.uid;
-				localStorage.setItem("username", user.email);
-				window.location = "http://127.0.0.1:5501/";
+		if (user) {
+			localStorage.clear();
+			useremail = user.email;
+			userId = user.uid;
+			if (useremail === "admin@gmail.com") {
+				window.location = "http://127.0.0.1:5501/#/admin";
 			} else {
-				alert("No Active user Found");
+				localStorage.setItem("username", user.email);
 			}
-		}, 5000);
+
+			//window.location = "http://127.0.0.1:5501/";
+		} else {
+			alert("No Active user Found");
+		}
 	});
 
 	function savetoDatabase(

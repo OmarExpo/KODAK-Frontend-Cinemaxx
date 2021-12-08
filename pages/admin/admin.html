@@ -1,0 +1,101 @@
+<div class="formContainer">
+	<div class="container">
+		<div class="row">
+			<div class="div1">
+				<div class="col-sm">
+					<div class="card">
+						<div class="card-title">
+							<h1 class="admin_head"></h1>
+							<div class="card-body">
+								<button id="show_all_movies">Show all movies</button>
+								<button id="add_movies">Add movies</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="div2">
+				<div class="col-sm">
+					<div class="card">
+						<div class="card-title">
+							<h1 class="admin_head"></h1>
+							<div class="card-body">
+								<p class="movie_para"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="div3">
+				<div class="col-sm">
+					<div class="card">
+						<div class="card-title">
+							<h1 class="admin_head"></h1>
+							<div class="card-body">
+								<form action="#" onsubmit="return false">
+									<div class="form_div">
+										<label for="movie_title" class="form-label"
+											>Movie Title</label
+										>
+										<input
+											type="text"
+											class="form-control movie_title"
+											placeholder="movie title"
+										/>
+									</div>
+									<br />
+									<div class="form_div">
+										<label for="age_group" class="form-label">Age group</label>
+
+										<select class="custom-select age_group">
+											<option selected>Choose...</option>
+											<option value="kids">Kid</option>
+											<option value="teens">Teen</option>
+											<option value="adults">Adult</option>
+										</select>
+									</div>
+									<br />
+									<div class="form_div">
+										<label for="movie_actor" class="form-label">Actors</label>
+										<input
+											type="text"
+											class="form-control movie_actor"
+											placeholder="actor1,actor2"
+										/>
+									</div>
+									<br />
+									<div class="form_div">
+										<label for="movie_story" class="form-label">Story</label>
+										<textarea
+											class="form-control movie_story"
+											rows="4"
+										></textarea>
+									</div>
+									<br />
+									<label for="movie_rating" class="form-label">Ratings</label>
+									<input
+										type="number"
+										name=""
+										class="movie_rating"
+										min="0"
+										max="10"
+									/>
+									<br />
+									<button type="submit" class="btn btn-primary" id="submit">
+										Submit
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.card {
+		margin-top: 40px;
+		padding: 10%;
+	}
+</style>

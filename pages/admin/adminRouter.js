@@ -1,11 +1,11 @@
-import loginScript from "./login.js";
+import adminScript from "./admin.js";
 
 export default () => {
 	const content = document.querySelector(".content");
-	fetch("./pages/login/login.html")
+	fetch("./pages/admin/admin.html")
 		.then((response) => response.text())
 		.then((loginHtml) => {
 			content.innerHTML = loginHtml;
-			loginScript();
+			adminScript();
 		});
 };

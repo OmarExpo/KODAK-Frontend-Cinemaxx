@@ -1,5 +1,6 @@
 import renderHome from "./pages/home/homeRoute.js";
 import renderLogin from "./pages/login/loginRoute.js";
+import renderAdmin from "./pages/admin/adminRouter.js";
 
 export default function () {
 	window.router = new Navigo("/", { hash: true });
@@ -12,6 +13,9 @@ export default function () {
 
 			login: () => {
 				renderLogin();
+			},
+			admin: () => {
+				renderAdmin();
 			},
 		})
 		.resolve();

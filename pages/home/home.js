@@ -6,10 +6,6 @@ export default () => {
 	const div4object = document.querySelector("#div4");
 	const div5object = document.querySelector("#div5");
 	const login_nav_obj = document.querySelector("#loginLink");
-	const signout_btn_obj = document.querySelector("#sign_out_btn");
-	signout_btn_obj.addEventListener("click", () => {
-		localStorage.clear();
-	});
 
 	if ("username" in localStorage) {
 		login_nav_obj.innerHTML = localStorage["username"];
@@ -225,7 +221,7 @@ export default () => {
 						selected_seat = btn.innerText;
 						console.log(user_id);
 
-						if (localStorage.username.length > 0) {
+						if (typeof localStorage.username !== "undefined") {
 							const connformation = confirm(
 								"Do you want to reserve seat number:- " + btn.innerText + "?"
 							);
@@ -249,14 +245,15 @@ export default () => {
 											btn.style.backgroundColor = "blue";
 											btn.disabled = "true";
 											trElement.style.display = "none";
-											
-
 										} else {
 											messageHeader.innerHTML = `Something went wrong- it seems you tried to book multiple ticket try for the another show.`;
 											message_displayObj.appendChild(messageHeader);
 										}
 									});
 							}
+						} else {
+							alert("please login first......");
+							//window.location.reload();
 						}
 					});
 				});
