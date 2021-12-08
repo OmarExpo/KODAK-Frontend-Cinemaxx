@@ -127,22 +127,23 @@ export default () => {
 						.then((movieData) => {
 							moviename = movieData[0].title;
 							//movieid;
-							const movieImageElement = document.createElement("img");
+							//const movieImageElement = document.createElement("img");
 							const movieTitleobj = document.createElement("h1");
 							movieTitleobj.innerHTML = movieData[0].title;
-							movieImageElement.setAttribute(
+							/*movieImageElement.setAttribute(
 								"src",
 								`./picture/${moviename}.png`
 							);
 							movieImageElement.style.width = "200px";
 							movieImageElement.style.height = "200px";
+							*/
 							const buttonFreeSeats = document.createElement("button");
 							buttonFreeSeats.innerText = "show free seats";
 							const descriptionObject = document.createElement("P");
 							descriptionObject.innerHTML = movieData[0].story;
 
 							movieDisplayUlObj.appendChild(movieTitleobj);
-							movieDisplayUlObj.appendChild(movieImageElement);
+							get_image_url_by_movie_name(moviename, movieDisplayUlObj);
 
 							movieDisplayUlObj.appendChild(descriptionObject);
 							const free_seats_buttonobj =
@@ -273,4 +274,29 @@ export default () => {
 				user_id = userData.id;
 			});
 	}
+
+	//--------------------------------fetching poster_url from api---------------------------
+/*
+	function get_image_url_by_movie_name(movie_name, elementToattach) {
+		return fetch(
+			`https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${movie_name}`
+		)
+			.then((response) => response.json())
+			.then((movieObject) => {
+				const movie_posterurl = movieObject.results[0].poster_path;
+
+				fetch(`https://image.tmdb.org/t/p/w500/${movie_posterurl}`)
+					.then((response) => response.blob())
+					.then((movieObject) => {
+						var objectURL = URL.createObjectURL(movieObject);
+
+						const movie_img_element = document.createElement("img");
+						movie_img_element.setAttribute("src", `${objectURL}`);
+						movie_img_element.style.width = "300px";
+						movie_img_element.style.height = "300px";
+						elementToattach.appendChild(movie_img_element);
+					});
+			});
+	}
+	*/
 };

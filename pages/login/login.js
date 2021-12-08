@@ -96,7 +96,7 @@ export default () => {
 			localStorage.clear();
 			useremail = user.email;
 			userId = user.uid;
-			if (useremail === "admin@gmail.com") {
+			if (localStorage["username"] === "admin@gmail.com") {
 				window.location = "http://127.0.0.1:5501/#/admin";
 			} else {
 				localStorage.setItem("username", user.email);

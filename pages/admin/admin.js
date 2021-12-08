@@ -14,32 +14,7 @@ export default () => {
 			.then((movieObject) => {
 				show_second_div();
 				movieObject.forEach((new_movie) => {
-					const brElement = document.createElement("br");
-					const hrElement = document.createElement("hr");
-					const movie_title = document.createElement("h1");
-					const movie_id_element = document.createElement("h3");
-					const movie_story_label = document.createElement("label");
-					const movie_story_element = document.createElement("p");
-					const movie_img_element = document.createElement("img");
-					movie_img_element.setAttribute(
-						"src",
-						`./picture/${new_movie.title}.png`
-					);
-					movie_img_element.setAttribute("alt", `${new_movie.title}`);
-					movie_img_element.style.width = "300px";
-					movie_img_element.style.height = "300px";
-
-					movie_id_element.innerHTML = "Movie id:- " + new_movie.id;
-					movie_title.innerHTML = "Title:- " + new_movie.title;
-					movie_story_label.innerHTML = "Story:-";
-					movie_story_element.innerHTML = new_movie.story;
-					movie_para_element.appendChild(movie_id_element);
-					movie_para_element.appendChild(movie_title);
-					movie_para_element.appendChild(movie_img_element);
-					movie_para_element.appendChild(brElement);
-					movie_para_element.appendChild(movie_story_label);
-					movie_para_element.appendChild(movie_story_element);
-					movie_para_element.appendChild(hrElement);
+					get_image_url_by_movie_name(new_movie);
 				});
 			});
 	});
@@ -47,9 +22,51 @@ export default () => {
 	add_movies_btn.addEventListener("click", () => {
 		show_third_div();
 
-		const movie_submit_btn = document.querySelector("#submit");
+		const charactersList = document.getElementById("charactersList");
+		const searchBar = document.querySelector(".movie_title");
+		let hpCharacters = [];
 
-		movie_submit_btn.addEventListener("click", () => {
+		const loadCharacters = () => {
+			const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=04db70555a543ca38f42b004ffad2941&language=en-US&page=1+1`;
+			fetch(url)
+				.then((response) => response.json())
+				.then((data) => {
+					hpCharacters = data.results;
+					displayCharacters(hpCharacters);
+					searchBar.addEventListener("keyup", (e) => {
+						const searchString = e.target.value.toLowerCase();
+						//console.log(hpCharacters);
+						const filteredCharacters = hpCharacters.filter((character) => {
+							return character.original_title
+								.toLowerCase()
+								.includes(searchString);
+						});
+						displayCharacters(filteredCharacters);
+					});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		};
+		const butttonArray = [];
+		const displayCharacters = (characters) => {
+			characters.map((character) => {
+				const btnElement = document.createElement("button");
+				btnElement.innerText = character.original_title;
+				butttonArray.push(btnElement);
+				charactersList.appendChild(btnElement);
+			});
+
+			butttonArray.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					searchBar.value = btn.innerText;
+				});
+			});
+		};
+		loadCharacters();
+
+		/*
+			movie_submit_btn.addEventListener("click", () => {
 			const movie_title_input = document.querySelector(".movie_title").value;
 			const age_group_input = document.querySelector(".age_group").value;
 			const actors_input = document.querySelector(".movie_actor").value;
@@ -63,8 +80,11 @@ export default () => {
 				story: movie_story_input,
 				rating: movie_rating_input,
 			};
+
+
+			
 			add_movie(movie_details);
-		});
+			*/
 	});
 
 	function add_movie(movieData) {
@@ -99,4 +119,90 @@ export default () => {
 		div2Element.style.display = "none";
 		div3Element.style.display = "block";
 	}
+
+	function get_image_url_by_movie_name(new_movie) {
+		return fetch(
+			`https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${new_movie.title}`
+		)
+			.then((response) => response.json())
+			.then((movieObject) => {
+				const movie_posterurl = movieObject.results[0].poster_path;
+				const movie_story = movieObject.results[0].overview;
+				const movie_submit_btn = document.querySelector("#submit");
+
+				movie_submit_btn.addEventListener("click", () => {
+					const title = movieObject.original_title;
+					const age_group = "Adult";
+					const actor = "actor1, actor2";
+					const story = movieObject.overview;
+					const rating = movieObject.vote_average + "/10";
+					const posterLink = movieObject.poster_path;
+					const movie_details = {
+						title: title,
+						ageGroup: age_group,
+						actor: actor,
+						story: story,
+						rating: rating,
+						posterLink: posterLink,
+					};
+					add_movie(movie_details);
+				});
+
+				fetch(`https://image.tmdb.org/t/p/w500/${movie_posterurl}`)
+					.then((response) => response.blob())
+					.then((movieObject) => {
+						var objectURL = URL.createObjectURL(movieObject);
+						const brElement = document.createElement("br");
+						const hrElement = document.createElement("hr");
+						const movie_title = document.createElement("h1");
+						const movie_id_element = document.createElement("h3");
+						const movie_story_label = document.createElement("label");
+						const movie_story_element = document.createElement("p");
+						movie_id_element.innerHTML = "Movie id:- " + new_movie.id;
+						movie_title.innerHTML = "Title:- " + new_movie.title;
+						movie_story_label.innerHTML = "Story:-";
+						movie_story_element.innerHTML = movie_story;
+						movie_para_element.appendChild(movie_id_element);
+						movie_para_element.appendChild(movie_title);
+						movie_para_element.appendChild(brElement);
+						const movie_img_element = document.createElement("img");
+						movie_img_element.setAttribute("src", `${objectURL}`);
+						movie_img_element.style.width = "300px";
+						movie_img_element.style.height = "300px";
+						movie_para_element.appendChild(movie_img_element);
+						movie_para_element.appendChild(brElement);
+						movie_para_element.appendChild(movie_story_label);
+						movie_para_element.appendChild(movie_story_element);
+						movie_para_element.appendChild(hrElement);
+					});
+			});
+	}
+
+	const movie_submit_btn = document.querySelector("#submit");
+	movie_submit_btn.addEventListener("click", () => {
+		const movie_title_input = document.querySelector(".movie_title").value;
+		fetch(
+			`https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${movie_title_input}`
+		)
+			.then((response) => response.json())
+			.then((movieObject) => {
+				const movie_posterurl = movieObject.results[0].poster_path;
+				const movie_story = movieObject.results[0].overview;
+				const title = movieObject.results[0].original_title;
+				const age_group = "Adult";
+				const actor = "actor1, actor2";
+				const story = movieObject.overview;
+				const rating = movieObject.vote_average + "/10";
+				const posterLink = movieObject.poster_path;
+				const movie_details = {
+					title: title,
+					ageGroup: age_group,
+					actor: actor,
+					story: movie_story,
+					rating: rating,
+					posterLink: movie_posterurl,
+				};
+				add_movie(movie_details);
+			});
+	});
 };
