@@ -9,7 +9,7 @@ export default () => {
 	const headerTag_element = document.querySelector(".headder_tag");
 
 	if ("username" in localStorage) {
-		login_nav_obj.innerHTML = localStorage["username"];
+		login_nav_obj.innerHTML = localStorage["username"] + " Logout";
 	} else {
 		login_nav_obj.innerHTML = "Signin Or Register";
 	}

@@ -1,172 +1,132 @@
 <!DOCTYPE html>
+<div class=".header-logo-desc"></div>
+<div id="slider" style="position: relative">
+	<marquee behavior="alternate" direction="left">
+		<figure>
+			<img
+				src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg"
+				alt="movie1"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/90DdoEStzeObs96fsYf4GG544iN.jpg"
+				alt="movie3"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg"
+				alt="movie5"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
+				alt="movie5"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg"
+				alt="movie6"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/kHNWm8YDl1Pf6tyzluLagbtkU94.jpg"
+				alt="movie7"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/23itzX1Xm8fro9gy5gkpKoA9Mad.jpg"
+				alt="movie8"
+				srcset=""
+			/>
+			<img
+				src="https://image.tmdb.org/t/p/w500/kT8bDEAgEYBKhRJtqM97qTw6uRW.jpg"
+				alt="movie9"
+				srcset=""
+			/>
+		</figure>
+	</marquee>
+</div>
+<hr />
+<h1>Welcome to Cinemaxx</h1>
+<hr />
 
-		<div>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-toggle="collapse"
-					data-target="#navbarNav"
-					aria-controls="navbarNav"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
-						<li class="nav-item active">
-							<a class="nav-link" href="/" data-navigo
-								>Home</a
-							>
-						</li>
-						
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							  Shows
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							  <li><a class="dropdown-item" href="/today" data-navigo>Today</a></li>
-							  <li><a class="dropdown-item" href="#">Week Shows</a></li>
-							  <li><hr class="dropdown-divider"></li>
-							</ul>
-						  </li>
-          
-						<li class="nav-item">
-							<a class="nav-link" href="#">Buy Ticket</a>
-						</li
-						<li class="nav-item">
-							<a id="loginLink" class="nav-link" href="/login" data-navigo>LogIn Or Register</a>
-						</li>
-						<li class="nav-item">
-							<a id="logout" class="nav-link" href="/login" data-navigo>signOut</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
-		</div>
-
-		<div class=".header-logo-desc"></div>
-		<div id="slider">
-			<marquee behavior="alternate" direction="left">
-				<figure>
-					<img src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" alt="movie1" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/90DdoEStzeObs96fsYf4GG544iN.jpg" alt="movie3" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg" alt="movie5" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg" alt="movie5" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg" alt="movie6" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/kHNWm8YDl1Pf6tyzluLagbtkU94.jpg" alt="movie7" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/23itzX1Xm8fro9gy5gkpKoA9Mad.jpg" alt="movie8" srcset="" />
-					<img src="https://image.tmdb.org/t/p/w500/kT8bDEAgEYBKhRJtqM97qTw6uRW.jpg" alt="movie9" srcset="" />
-	
-				</figure>
-			</marquee>
-		
-			
-		</div>
-		<hr>
-		<h1>Welcome to Cinemaxx</h1>
-		<hr>
-
-		
-	<div class="container">
+<div class="container">
 	<div class="row">
 		<div id="div1">
-		<div class="col-sm">
-				
-				<div class="card" >
+			<div class="col-sm">
+				<div class="card">
 					<div class="card-title">
 						<h1>Our schedules</h1>
-					<div class="card-body">
-						<div class="timeslots">
+						<div class="card-body">
+							<div class="timeslots"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="div2" style="display: none">
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-title">
+						<div class="card-body">
+							<div class="timeslots">
+								<button id="morning">Morning</button>
+								<button id="afternoon">Afternoon</button>
+								<button id="evening">Evening</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="div3" style="display: none">
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-title">
+						<div class="card-body">
+							<div class="timeslots">
+								<button id="A">Hall A</button>
+								<button id="B">Hall B</button>
+								<button id="C">Hall C</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="div4" style="display: none">
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-title">
+						<div class="card-body">
+							<ul class="movieDisplayClass"></ul>
+							<button id="seatdisplay">Free seats</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="div5" style="display: none">
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-title">
+						<h1 class="headder_tag">
+							Green available seats and red sold out seats.
+						</h1>
+						<div class="card-body">
+							<div>
+								<div class="hall">
+									<table class="table">
+										<tr class="tr"></tr>
+									</table>
+
+									<div class="conformation_message"></div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="div2" style="display: none;">
-		<div class="col-sm">
-		<div class="card" >
-		<div class="card-title">
-		<div class="card-body">
-		<div class="timeslots">
-		<button id="morning">Morning</button>
-		<button id="afternoon">Afternoon</button>
-		<button id="evening">Evening</button>
-
-		</div>
-	</div>
 </div>
-</div>
-
-</div>
-
-</div>
-<div id="div3" style="display: none;">
-	<div class="col-sm">
-	<div class="card" >
-	<div class="card-title">
-	<div class="card-body">
-	<div class="timeslots">
-	<button id="A">Hall A</button>
-	<button id="B">Hall B</button>
-	<button id="C">Hall C</button>
-
-	</div>
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-<div id="div4" style="display: none;">
-	<div class="col-sm">
-	<div class="card" >
-	<div class="card-title">
-	<div class="card-body">
-<ul class="movieDisplayClass">
-
-</ul>
-<button id="seatdisplay">Free seats</button>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="div5" style="display: none;">
-	<div class="col-sm">
-	<div class="card" >
-	<div class="card-title">
-		<h1 class="headder_tag">Green available seats and red sold out seats.</h1>
-	<div class="card-body">
-		<div>
-			<div class="hall">
-				
-			
-				  
-				  <table class="table">
-					  <tr class="tr">
-
-					  </tr>
-					
-				   
-					</table> 
-				
-				<div class="conformation_message">
-					
-				</div>
-			</div>
-		</div>
-		
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-		
-

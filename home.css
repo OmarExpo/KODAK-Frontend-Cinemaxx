@@ -45,6 +45,7 @@ td {
 
 .table {
 	border-spacing: 2em;
+	overflow: auto;
 }
 h1 {
 	text-align: center;

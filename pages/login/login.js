@@ -1,13 +1,15 @@
 import utils from "./../../utils.js";
 export default (auth) => {
-	console.log(window.auth);
-
 	let useremail = "";
 	let userId = "";
 
 	const secondDiv = document.querySelector("#div2");
 	const firstDiv = document.querySelector("#div1");
 	const thirdDiv = document.querySelector("#div3");
+	const signoutBtn = document.querySelector(".signOut");
+	signoutBtn.addEventListener("click", () => {
+		utils.logout(auth);
+	});
 	secondDiv.style.display = "none";
 	thirdDiv.style.display = "none";
 	//signup function
@@ -60,6 +62,8 @@ export default (auth) => {
 				useremail = cred.user.email;
 
 				if (useremail === "admin@gmail.com") {
+					localStorage.setItem("username", "admin@gmail.com");
+
 					window.location = "http://127.0.0.1:5501/#/admin";
 				} else {
 					window.location = "http://127.0.0.1:5501/";
@@ -70,16 +74,6 @@ export default (auth) => {
 			});
 	}
 
-	//signOut
-	/*
-	function signOut() {
-		window.auth.signOut();
-		localStorage.clear();
-		window.location = "http://127.0.0.1:5501/";
-
-		alert("SignOut Successfully from System");
-	}
-*/
 	//active user to homepage
 	window.auth.onAuthStateChanged((user) => {
 		if (user) {
@@ -87,6 +81,7 @@ export default (auth) => {
 			useremail = user.email;
 			userId = user.uid;
 			if (localStorage["username"] === "admin@gmail.com") {
+				localStorage.setItem("username", "admin@gmail.com");
 				window.location = "http://127.0.0.1:5501/#/admin";
 			} else {
 				localStorage.setItem("username", user.email);

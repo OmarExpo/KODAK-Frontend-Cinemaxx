@@ -9,6 +9,12 @@ export default () => {
 	const add_movies_btn = document.querySelector("#add_movies");
 	const movie_para_element = document.querySelector(".movie_para");
 	const signOutButton = document.querySelector("#sign-out");
+	const login_nav_obj = document.querySelector("#loginLink");
+	if ("username" in localStorage) {
+		login_nav_obj.innerHTML = localStorage["username"] + " Logout";
+	} else {
+		login_nav_obj.innerHTML = "Signin Or Register";
+	}
 
 	signOutButton.addEventListener("click", () => {
 		utils.logout(window.auth);
@@ -71,27 +77,6 @@ export default () => {
 			});
 		};
 		loadCharacters();
-
-		/*
-			movie_submit_btn.addEventListener("click", () => {
-			const movie_title_input = document.querySelector(".movie_title").value;
-			const age_group_input = document.querySelector(".age_group").value;
-			const actors_input = document.querySelector(".movie_actor").value;
-			const movie_story_input = document.querySelector(".movie_story").value;
-			const movie_rating_input =
-				document.querySelector(".movie_rating").value + "/10";
-			const movie_details = {
-				title: movie_title_input,
-				ageGroup: age_group_input,
-				actor: actors_input,
-				story: movie_story_input,
-				rating: movie_rating_input,
-			};
-
-
-			
-			add_movie(movie_details);
-			*/
 	});
 
 	function add_movie(movieData) {
@@ -105,6 +90,8 @@ export default () => {
 			.then((response) => response.json())
 			.then((movieData) => {
 				console.log("Success:", movieData);
+				alert("Added successfully");
+				location.reload();
 			})
 			.catch((error) => {
 				console.error("Error:", error);
@@ -153,6 +140,7 @@ export default () => {
 						posterLink: posterLink,
 					};
 					add_movie(movie_details);
+					location.reload();
 				});
 
 				fetch(`https://image.tmdb.org/t/p/w500/${movie_posterurl}`)
