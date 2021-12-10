@@ -40,6 +40,7 @@ The specific design choices we made were a clean layout with few elements and re
 
 
 For production deployment, here is our <strong>surge_sh</strong> link: http://difficult-popcorn.surge.sh/
+Second sprint deployment Link : http://kodak-popcorn.surge.sh/ 
 
  <strong>Note</strong>: 
  
