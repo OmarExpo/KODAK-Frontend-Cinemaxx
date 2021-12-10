@@ -6,6 +6,7 @@ export default () => {
 	const div4object = document.querySelector("#div4");
 	const div5object = document.querySelector("#div5");
 	const login_nav_obj = document.querySelector("#loginLink");
+	const headerTag_element = document.querySelector(".headder_tag");
 
 	if ("username" in localStorage) {
 		login_nav_obj.innerHTML = localStorage["username"];
@@ -115,43 +116,31 @@ export default () => {
 			displayMovies();
 
 			const movieDisplayUlObj = document.querySelector(".movieDisplayClass");
-			const apiUrl = `http://54.146.239.101/schedules/${selectedDate}/${selectedSlot}/${selectedHall}`;
+			const apiUrl = `http://3.90.205.148/schedules/${selectedDate}/${selectedSlot}/${selectedHall}`;
 			fetch(apiUrl)
 				.then((response) => response.json())
 				.then((scheduleData) => {
 					movieid = scheduleData[0].movieId;
-					//console.log(scheduleData);
-					const apiUrl1 = `http://54.146.239.101/movies/${movieid}`;
+					const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
 					fetch(apiUrl1)
 						.then((response) => response.json())
 						.then((movieData) => {
 							moviename = movieData[0].title;
-							//movieid;
-							//const movieImageElement = document.createElement("img");
 							const movieTitleobj = document.createElement("h1");
 							movieTitleobj.innerHTML = movieData[0].title;
-							/*movieImageElement.setAttribute(
-								"src",
-								`./picture/${moviename}.png`
-							);
-							movieImageElement.style.width = "200px";
-							movieImageElement.style.height = "200px";
-							*/
 							const buttonFreeSeats = document.createElement("button");
 							buttonFreeSeats.innerText = "show free seats";
 							const descriptionObject = document.createElement("P");
 							descriptionObject.innerHTML = movieData[0].story;
-
 							movieDisplayUlObj.appendChild(movieTitleobj);
 							get_image_url_by_movie_name(moviename, movieDisplayUlObj);
-
 							movieDisplayUlObj.appendChild(descriptionObject);
 							const free_seats_buttonobj =
 								document.querySelector("#seatdisplay");
 							const cardBodyobj = document.querySelector(".showseats");
 							free_seats_buttonobj.addEventListener("click", () => {
 								displaySeats();
-								const apiUrl3 = `http://54.146.239.101/bookings/freeseats/${selectedDate}/${selectedHall}/${selectedSlot}`;
+								const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${selectedDate}/${selectedHall}/${selectedSlot}`;
 								createSeatsArrayFromApi(16, apiUrl3);
 							});
 						})
@@ -227,7 +216,7 @@ export default () => {
 								"Do you want to reserve seat number:- " + btn.innerText + "?"
 							);
 							if (connformation) {
-								const api4 = `http://54.146.239.101/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${btn.innerText}`;
+								const api4 = `http://3.90.205.148/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${btn.innerText}`;
 								fetch(api4)
 									.then((response) => response.json())
 									.then((reserved_seat) => {
@@ -246,6 +235,14 @@ export default () => {
 											btn.style.backgroundColor = "blue";
 											btn.disabled = "true";
 											trElement.style.display = "none";
+											headerTag_element.innerHTML = "Your reservation datails.";
+											const print_btn = document.createElement("button");
+											print_btn.className = "print_btn";
+											print_btn.innerText = "Print";
+											message_displayObj.appendChild(print_btn);
+											print_btn.addEventListener("click", () => {
+												window.print();
+											});
 										} else {
 											messageHeader.innerHTML = `Something went wrong- it seems you tried to book multiple ticket try for the another show.`;
 											message_displayObj.appendChild(messageHeader);
@@ -254,7 +251,6 @@ export default () => {
 							}
 						} else {
 							alert("please login first......");
-							//window.location.reload();
 						}
 					});
 				});
@@ -267,7 +263,7 @@ export default () => {
 
 	//------------------------------------------------------------------------------Getting userid from api using email-------------------------------------------------------
 	function get_userid_by_email(useremail) {
-		const api_for_id_toget_user = `http://54.146.239.101/users/${useremail}`;
+		const api_for_id_toget_user = `http://3.90.205.148/users/${useremail}`;
 		fetch(api_for_id_toget_user)
 			.then((response) => response.json())
 			.then((userData) => {
@@ -276,7 +272,7 @@ export default () => {
 	}
 
 	//--------------------------------fetching poster_url from api---------------------------
-/*
+
 	function get_image_url_by_movie_name(movie_name, elementToattach) {
 		return fetch(
 			`https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${movie_name}`
@@ -298,5 +294,4 @@ export default () => {
 					});
 			});
 	}
-	*/
 };

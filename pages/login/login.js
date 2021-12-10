@@ -1,19 +1,9 @@
-export default () => {
-	var firebaseConfig = {
-		apiKey: "AIzaSyDTOcIjbKFTmGUM_Tqy6F2Mk9RP1wXPQy4",
-		authDomain: "cinemaxx-43706.firebaseapp.com",
-		projectId: "cinemaxx-43706",
-		storageBucket: "cinemaxx-43706.appspot.com",
-		messagingSenderId: "984238243120",
-		appId: "1:984238243120:web:c50b0dafb6c7102aea9cf5",
-		measurementId: "G-B0VYHY4NLG",
-	};
+import utils from "./../../utils.js";
+export default (auth) => {
+	console.log(window.auth);
 
-	firebase.initializeApp(firebaseConfig);
 	let useremail = "";
 	let userId = "";
-	const database = firebase.database();
-	const auth = firebase.auth();
 
 	const secondDiv = document.querySelector("#div2");
 	const firstDiv = document.querySelector("#div1");
@@ -81,17 +71,17 @@ export default () => {
 	}
 
 	//signOut
-
+	/*
 	function signOut() {
-		auth.signOut();
+		window.auth.signOut();
 		localStorage.clear();
 		window.location = "http://127.0.0.1:5501/";
 
 		alert("SignOut Successfully from System");
 	}
-
+*/
 	//active user to homepage
-	firebase.auth().onAuthStateChanged((user) => {
+	window.auth.onAuthStateChanged((user) => {
 		if (user) {
 			localStorage.clear();
 			useremail = user.email;
@@ -136,8 +126,8 @@ export default () => {
 		const birth_date = document.querySelector(".birth_date");
 		const userphone = document.querySelector(".number");
 		const useremail = document.querySelector(".email");
-
-		var leadsRef = database.ref("user");
+		/*
+		var leadsRef = window.database.ref("user");
 		leadsRef.on("value", function (snapshot) {
 			snapshot.forEach(function (childSnapshot) {
 				var childData = childSnapshot.val();
@@ -149,7 +139,9 @@ export default () => {
 				//useremail.innerHTML = "Email:- " + childData.email;
 			});
 		});
+		*/
 	}
+
 	function showTwo() {
 		const divone = document.querySelector("#div1");
 		const divtwo = document.querySelector("#div2");
@@ -174,7 +166,7 @@ export default () => {
 	});
 
 	function addUser(data) {
-		fetch("http://54.146.239.101/users/adduser", {
+		fetch("http://54.90.120.97/users/adduser", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

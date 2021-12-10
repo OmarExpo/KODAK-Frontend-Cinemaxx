@@ -1,10 +1,11 @@
 import renderHome from "./pages/home/homeRoute.js";
 import renderLogin from "./pages/login/loginRoute.js";
 import renderAdmin from "./pages/admin/adminRouter.js";
+import renderToday from "./pages/today/todayRoute.js";
 
 export default function () {
 	window.router = new Navigo("/", { hash: true });
-
+	console.log(window.auth);
 	router
 		.on({
 			"/": () => {
@@ -12,10 +13,13 @@ export default function () {
 			},
 
 			login: () => {
-				renderLogin();
+				renderLogin(window.auth);
 			},
 			admin: () => {
 				renderAdmin();
+			},
+			today: () => {
+				renderToday();
 			},
 		})
 		.resolve();

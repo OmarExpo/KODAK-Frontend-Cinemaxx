@@ -17,15 +17,21 @@
 					<ul class="navbar-nav">
 						<li class="nav-item active">
 							<a class="nav-link" href="/" data-navigo
-								>Home <span class="sr-only">(current)</span></a
+								>Home</a
 							>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Shows</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Today</a>
-						</li>
+						
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							  Shows
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							  <li><a class="dropdown-item" href="/today" data-navigo>Today</a></li>
+							  <li><a class="dropdown-item" href="#">Week Shows</a></li>
+							  <li><hr class="dropdown-divider"></li>
+							</ul>
+						  </li>
+          
 						<li class="nav-item">
 							<a class="nav-link" href="#">Buy Ticket</a>
 						</li
@@ -39,18 +45,27 @@
 				</div>
 			</nav>
 		</div>
+
 		<div class=".header-logo-desc"></div>
 		<div id="slider">
-			<figure>
-				<img src="/picture/HOUSE of GUCCI.png" alt="movie1" srcset="" />
-				<img src="/picture/HARRY POTTER.png" alt="movie3" srcset="" />
-				<img src="/picture/Familien JUL og NISSEHOTELLET.png" alt="movie5" srcset="" />
-				<img src="/picture/ETERNALS.png" alt="movie5" srcset="" />
-
-			</figure>
+			<marquee behavior="alternate" direction="left">
+				<figure>
+					<img src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" alt="movie1" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/90DdoEStzeObs96fsYf4GG544iN.jpg" alt="movie3" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg" alt="movie5" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg" alt="movie5" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/6AdXwFTRTAzggD2QUTt5B7JFGKL.jpg" alt="movie6" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/kHNWm8YDl1Pf6tyzluLagbtkU94.jpg" alt="movie7" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/23itzX1Xm8fro9gy5gkpKoA9Mad.jpg" alt="movie8" srcset="" />
+					<img src="https://image.tmdb.org/t/p/w500/kT8bDEAgEYBKhRJtqM97qTw6uRW.jpg" alt="movie9" srcset="" />
+	
+				</figure>
+			</marquee>
+		
+			
 		</div>
 		<hr>
-		<marquee><h1>Welcome to Cinemaxx</h1></marquee>
+		<h1>Welcome to Cinemaxx</h1>
 		<hr>
 
 		
@@ -125,7 +140,7 @@
 	<div class="col-sm">
 	<div class="card" >
 	<div class="card-title">
-		<h1>Green available seats and red sold out seats.</h1>
+		<h1 class="headder_tag">Green available seats and red sold out seats.</h1>
 	<div class="card-body">
 		<div>
 			<div class="hall">

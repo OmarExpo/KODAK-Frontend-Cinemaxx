@@ -1,3 +1,5 @@
+import utils from "./../../utils.js";
+
 export default () => {
 	const div1Element = document.querySelector(".div1");
 	const div2Element = document.querySelector(".div2");
@@ -6,10 +8,15 @@ export default () => {
 	const show_movie_btn = document.querySelector("#show_all_movies");
 	const add_movies_btn = document.querySelector("#add_movies");
 	const movie_para_element = document.querySelector(".movie_para");
+	const signOutButton = document.querySelector("#sign-out");
+
+	signOutButton.addEventListener("click", () => {
+		utils.logout(window.auth);
+	});
 
 	show_first_div();
 	show_movie_btn.addEventListener("click", () => {
-		fetch("http://54.146.239.101/movies")
+		fetch("http://3.90.205.148/movies")
 			.then((response) => response.json())
 			.then((movieObject) => {
 				show_second_div();
@@ -88,7 +95,7 @@ export default () => {
 	});
 
 	function add_movie(movieData) {
-		fetch("http://54.146.239.101/movies/addmovie", {
+		fetch("http://3.90.205.148/movies/addmovie", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -135,14 +142,14 @@ export default () => {
 					const age_group = "Adult";
 					const actor = "actor1, actor2";
 					const story = movieObject.overview;
-					const rating = movieObject.vote_average + "/10";
+					const rating1 = movieObject.vote_average;
 					const posterLink = movieObject.poster_path;
 					const movie_details = {
 						title: title,
 						ageGroup: age_group,
 						actor: actor,
 						story: story,
-						rating: rating,
+						rating: rating1,
 						posterLink: posterLink,
 					};
 					add_movie(movie_details);
@@ -174,8 +181,13 @@ export default () => {
 						movie_para_element.appendChild(movie_story_label);
 						movie_para_element.appendChild(movie_story_element);
 						movie_para_element.appendChild(hrElement);
+						showMovieObject(movieObject);
 					});
 			});
+	}
+
+	function showMovieObject(anyObj) {
+		console.log(anyObj);
 	}
 
 	const movie_submit_btn = document.querySelector("#submit");
@@ -186,20 +198,20 @@ export default () => {
 		)
 			.then((response) => response.json())
 			.then((movieObject) => {
+				console.log(movieObject);
 				const movie_posterurl = movieObject.results[0].poster_path;
 				const movie_story = movieObject.results[0].overview;
 				const title = movieObject.results[0].original_title;
 				const age_group = "Adult";
 				const actor = "actor1, actor2";
-				const story = movieObject.overview;
-				const rating = movieObject.vote_average + "/10";
+				const rating2 = `${movieObject.results[0].vote_average}` + "/10";
 				const posterLink = movieObject.poster_path;
 				const movie_details = {
 					title: title,
 					ageGroup: age_group,
 					actor: actor,
 					story: movie_story,
-					rating: rating,
+					rating: rating2,
 					posterLink: movie_posterurl,
 				};
 				add_movie(movie_details);

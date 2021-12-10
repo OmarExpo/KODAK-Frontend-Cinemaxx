@@ -4,53 +4,7 @@ body {
 
 img {
 	height: 300px;
-	width: 100%;
-}
-.mainDiv {
-	width: 100%;
-}
-#slider {
-	overflow: hidden;
-}
-#slider figure {
-	position: relative;
-	width: 500%;
-	margin: 0;
-	left: 0;
-	animation: 25s slider infinite;
-}
-#slider figure img {
 	width: 20%;
-	float: left;
-}
-@keyframes slider {
-	0% {
-		left: 0;
-	}
-	20% {
-		left: 0;
-	}
-	25% {
-		left: -100%;
-	}
-	45% {
-		left: -100%;
-	}
-	50% {
-		left: -200%;
-	}
-	70% {
-		left: -200%;
-	}
-	75% {
-		left: -300%;
-	}
-	95% {
-		left: -300%;
-	}
-	100% {
-		left: -300%;
-	}
 }
 
 table,
@@ -91,4 +45,8 @@ td {
 
 .table {
 	border-spacing: 2em;
+}
+h1 {
+	text-align: center;
+	color: blue;
 }

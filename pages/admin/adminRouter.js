@@ -4,8 +4,8 @@ export default () => {
 	const content = document.querySelector(".content");
 	fetch("./pages/admin/admin.html")
 		.then((response) => response.text())
-		.then((loginHtml) => {
-			content.innerHTML = loginHtml;
+		.then((adminHtml) => {
+			content.innerHTML = adminHtml;
 			adminScript();
 		});
 };
