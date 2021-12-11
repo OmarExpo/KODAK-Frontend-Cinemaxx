@@ -6,18 +6,24 @@ export default () => {
   const availSeatsCard = document.querySelector("#available-seats-card");
   const movieDiv = document.querySelector("#movie-div");
   const login_nav_obj = document.querySelector("#loginLink");
-  const headerTag_element = document.querySelector(".headder_tag");
 
   // user
   "username" in localStorage
     ? (login_nav_obj.innerHTML = localStorage["username"] + " Logout")
     : (login_nav_obj.innerHTML = "Signin Or Register");
-  let user_id = 0;
-  get_userid_by_email(localStorage.username);
+  let user_id = 3;
+
+  (function getUseridByEmail(useremail) {
+    const api_for_id_toget_user = `http://3.90.205.148/users/${useremail}`;
+    fetch(api_for_id_toget_user)
+      .then((response) => response.json())
+      .then((userData) => {
+        user_id = userData.id;
+      });
+  })();
 
   // variable initialization
   let movieid = 1,
-    moviename = "",
     selected_seat = 0,
     selectedDate = "",
     selectedSlot = "",
@@ -113,7 +119,7 @@ export default () => {
         fetch(singleMovieAPIurl)
           .then((response) => response.json())
           .then((movieData) => {
-            renderMovie(movieData[0]);
+            renderMovie(movieData[0], date, slot, hall);
           })
           .catch((error) => {
             console.log(error);
@@ -121,7 +127,7 @@ export default () => {
       });
   }
 
-  function renderMovie(movieData) {
+  function renderMovie(movieData, date, slot, hall) {
     console.log(movieData);
     movieDiv.innerHTML = `
 	 	<h1>${movieData.title ? movieData.title : "-"}</h1>
@@ -132,13 +138,24 @@ export default () => {
       let freeSeatsButton = document.createElement("button");
       freeSeatsButton.innerHTML = "see free seats";
       movieDiv.appendChild(freeSeatsButton);
-    }, 1000);
+      freeSeatsButton.addEventListener("click", () => {
+        //availSeatsCard.innerHTML = ""
+        availSeatsCard.style.display = "block";
+        const bookSeatURL = `http://3.90.205.148/bookings/freeseats/${date}/${hall}/${slot}`;
+        //createSeatsArrayFromApi(;
 
-    freeSeatsButton.addEventListener("click", () => {
-      availSeatsCard.style.display = "block";
-      const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${date}/${hall}/${slot}`;
-      createSeatsArrayFromApi(16, apiUrl3);
-    });
+        createSeatsArrayFromApi(
+          16,
+          bookSeatURL,
+          date,
+          movieData.title,
+          hall,
+          slot,
+          user_id,
+          selected_seat
+        );
+      });
+    }, 1000);
   }
 
   function renderMoviePoster(movie_name, elementToattach) {
@@ -158,10 +175,20 @@ export default () => {
   }
 };
 
-/// -------------------------- free seeats display -----------------------------------------
+/// -------------------------- free seats display -----------------------------------------
 let freeseats_button_array = [];
 
-function createSeatsArrayFromApi(totalSeats, apistring) {
+function createSeatsArrayFromApi(
+  totalSeats,
+  apistring,
+  selectedDate,
+  moviename,
+  selectedHall,
+  selectedSlot,
+  user_id,
+  selected_seat
+) {
+  const headerTag_element = document.querySelector(".headder_tag");
   let freeseats = [];
   for (let i = 1; i <= totalSeats; i++) {
     freeseats.push(i);
@@ -210,6 +237,7 @@ function createSeatsArrayFromApi(totalSeats, apistring) {
         trElement.appendChild(newTd);
       }
       freeseats_button_array.forEach((btn) => {
+        console.log(btn);
         btn.addEventListener("click", () => {
           selected_seat = btn.innerText;
 
@@ -218,7 +246,7 @@ function createSeatsArrayFromApi(totalSeats, apistring) {
               "Do you want to reserve seat number:- " + btn.innerText + "?"
             );
             if (connformation) {
-              const api4 = `http://3.90.205.148/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${btn.innerText}`;
+              const api4 = `http://3.90.205.148/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${selected_seat}`;
               fetch(api4)
                 .then((response) => response.json())
                 .then((reserved_seat) => {
@@ -236,6 +264,7 @@ function createSeatsArrayFromApi(totalSeats, apistring) {
                     btn.style.backgroundColor = "blue";
                     btn.disabled = "true";
                     trElement.style.display = "none";
+
                     headerTag_element.innerHTML = "Your reservation datails.";
                     const print_btn = document.createElement("button");
                     print_btn.className = "print_btn";
@@ -260,14 +289,3 @@ function createSeatsArrayFromApi(totalSeats, apistring) {
       console.log(error);
     });
 }
-
-//----------------------------- getting userid from api using email -------------------------------------
-function get_userid_by_email(useremail) {
-  const api_for_id_toget_user = `http://3.90.205.148/users/${useremail}`;
-  fetch(api_for_id_toget_user)
-    .then((response) => response.json())
-    .then((userData) => {
-      user_id = userData.id;
-    });
-}
-//------------------------------------------------------------------
