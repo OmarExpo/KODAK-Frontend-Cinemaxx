@@ -20,30 +20,28 @@ export default (auth) => {
             const hallElement = document.createElement("h5");
             const slotElement = document.createElement("h5");
 
-            fetch(`https://image.tmdb.org/t/p/w500/${posterPath}`)
-              .then((response) => response.blob())
-              .then((moviePicture) => {
-                var objectURL = URL.createObjectURL(moviePicture);
-                const imageDiv = document.createElement("div");
-                cardBodyElement.appendChild(imageDiv);
-                const movie_img_element = document.createElement("img");
-                imageDiv.appendChild(movie_img_element);
-                movie_img_element.setAttribute("src", `${objectURL}`);
-                scheduleDetailElement.appendChild(cardBodyElement);
+            const imageDiv = document.createElement("div");
+            cardBodyElement.appendChild(imageDiv);
+            const movie_img_element = document.createElement("img");
+            imageDiv.appendChild(movie_img_element);
+            movie_img_element.setAttribute(
+              "src",
+              `https://image.tmdb.org/t/p/w500/${posterPath}`
+            );
+            scheduleDetailElement.appendChild(cardBodyElement);
 
-                headingTagElement.innerHTML = movieTitle;
-                dateElement.innerHTML = "Date: " + showDate;
-                hallElement.innerHTML = "Hall: " + showHallName;
-                slotElement.innerHTML = "Time: " + showSlotName;
+            headingTagElement.innerHTML = movieTitle;
+            dateElement.innerHTML = "Date: " + showDate;
+            hallElement.innerHTML = "Hall: " + showHallName;
+            slotElement.innerHTML = "Time: " + showSlotName;
 
-                cardBodyElement.append(
-                  headingTagElement,
-                  imageDiv,
-                  dateElement,
-                  hallElement,
-                  slotElement
-                );
-              });
+            cardBodyElement.append(
+              headingTagElement,
+              imageDiv,
+              dateElement,
+              hallElement,
+              slotElement
+            );
           });
       });
     });
