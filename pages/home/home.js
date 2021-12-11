@@ -102,16 +102,17 @@ export default () => {
 
   function fetchAndRenderMovie(date, slot, hall) {
     movieDiv.innerHTML = "";
-    const apiUrl = `http://3.90.205.148/schedules/${date}/${slot}/${hall}`;
-    fetch(apiUrl)
+    const scheduleAPIurl = `http://3.90.205.148/schedules/${date}/${slot}/${hall}`;
+    fetch(scheduleAPIurl)
       .then((response) => response.json())
       .then((scheduleData) => {
         console.log(scheduleData);
         movieid = scheduleData[0].movieId ? scheduleData[0].movieId : movieid;
-        const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
-        fetch(apiUrl1)
+        const singleMovieAPIurl = `http://3.90.205.148/movies/${movieid}`;
+        fetch(singleMovieAPIurl)
           .then((response) => response.json())
           .then((movieData) => {
+            console.log(movieData[0]);
             moviename = movieData[0].title;
             const movieTitleobj = document.createElement("h1");
             movieTitleobj.innerHTML = movieData[0].title;
@@ -236,7 +237,6 @@ export default () => {
           });
         });
       })
-
       .catch((error) => {
         console.log(error);
       });
@@ -259,19 +259,11 @@ export default () => {
     )
       .then((response) => response.json())
       .then((movieObject) => {
-        const movie_posterurl = movieObject.results[0].poster_path;
-
-        fetch(`https://image.tmdb.org/t/p/w500/${movie_posterurl}`)
-          .then((response) => response.blob())
-          .then((movieObject) => {
-            var objectURL = URL.createObjectURL(movieObject);
-
-            const movie_img_element = document.createElement("img");
-            movie_img_element.setAttribute("src", `${objectURL}`);
-            movie_img_element.style.width = "300px";
-            movie_img_element.style.height = "300px";
-            elementToattach.appendChild(movie_img_element);
-          });
+        const movieImgSrc = `https://image.tmdb.org/t/p/w500/${movieObject.results[0].poster_path}`;
+        const moviePosterElement = document.createElement("img");
+        moviePosterElement.setAttribute("src", movieImgSrc);
+        moviePosterElement.style.minWidth = "200px";
+        elementToattach.appendChild(moviePosterElement);
       });
   }
 };
