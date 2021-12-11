@@ -17,7 +17,7 @@ export default () => {
   get_userid_by_email(localStorage.username);
 
   // variable initialization
-  let movieid = 0,
+  let movieid = 1,
     moviename = "",
     selected_seat = 0,
     selectedDate = "",
@@ -89,47 +89,63 @@ export default () => {
     hall.addEventListener("click", (event) => {
       mapBackgroundColor(hallButtonArray, "white");
       event.target.style.backgroundColor = "blue";
-      movieDisplayCard.style.display = "block";
-
       selectedHall = hall.id;
-
-      console.log(selectedDate, selectedSlot, selectedHall);
-      fetchAndRenderMovie(selectedDate, selectedSlot, selectedHall);
     });
   });
 
-  function fetchAndRenderMovie(date, slot, hall) {
-    const apiUrl = `http://3.90.205.148/schedules/${date}/${slot}/${hall}`;
-    fetch(apiUrl)
+  // show movie button
+  let showMovieButton = document.getElementById("show-button");
+  showMovieButton.addEventListener("click", function () {
+    movieDisplayCard.style.display = "block";
+    fetchAndRenderMovie(selectedDate, selectedSlot, selectedHall);
+  });
+
+  function fetchMovieID(date, slot, hall) {
+    const scheduleAPIurl = `http://3.90.205.148/schedules/${date}/${slot}/${hall}`;
+    return fetch(scheduleAPIurl)
       .then((response) => response.json())
       .then((scheduleData) => {
         console.log(scheduleData);
-        movieid = scheduleData[0].movieId ? scheduleData[0].movieId : movieid;
-        const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
-        fetch(apiUrl1)
-          .then((response) => response.json())
-          .then((movieData) => {
-            moviename = movieData[0].title;
-            const movieTitleobj = document.createElement("h1");
-            movieTitleobj.innerHTML = movieData[0].title;
-            const buttonFreeSeats = document.createElement("button");
-            buttonFreeSeats.innerText = "show free seats";
-            const descriptionObject = document.createElement("P");
-            descriptionObject.innerHTML = movieData[0].story;
-            movieDiv.appendChild(movieTitleobj);
-            get_image_url_by_movie_name(moviename, movieDiv);
-            movieDiv.appendChild(descriptionObject);
-            const free_seats_buttonobj = document.querySelector("#seatdisplay");
-            const cardBodyobj = document.querySelector(".showseats");
-            free_seats_buttonobj.addEventListener("click", () => {
-              availSeatsCard.style.display = "block";
-              const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${date}/${hall}/${slot}`;
-              createSeatsArrayFromApi(16, apiUrl3);
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        return scheduleData[0].movieId ? scheduleData[0].movieId : movieid;
+      });
+  }
+  console.log(object);
+
+  function fetchAndRenderMovie() {
+    movieDiv.innerHTML = "";
+    // const apiUrl = `http://3.90.205.148/schedules/${date}/${slot}/${hall}`;
+
+    let movieID = fetchMovieID(selectedDate, selectedSlot, selectedHall).then(
+      (id) => id
+    );
+    console.log("movieID", movieID);
+    const singleMovieAPIurl = `http://3.90.205.148/movies/${movieID}`;
+
+    fetch(singleMovieAPIurl)
+      .then((response) => response.json())
+      .then((movieData) => {
+        moviename = movieData[0].title;
+        const movieTitleobj = document.createElement("h1");
+        movieTitleobj.innerHTML = movieData[0].title;
+        const buttonFreeSeats = document.createElement("button");
+        buttonFreeSeats.innerText = "show free seats";
+        const descriptionObject = document.createElement("P");
+        descriptionObject.innerHTML = movieData[0].story;
+        movieDiv.appendChild(movieTitleobj);
+        get_image_url_by_movie_name(moviename, movieDiv);
+        movieDiv.appendChild(descriptionObject);
+        let freeSeatsButton = document.createElement("button");
+        freeSeatsButton.innerHTML = "see free seats";
+        movieDiv.appendChild(freeSeatsButton);
+
+        // freeSeatsButton.addEventListener("click", () => {
+        //   availSeatsCard.style.display = "block";
+        //   const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${date}/${hall}/${slot}`;
+        //   createSeatsArrayFromApi(16, apiUrl3);
+        // });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 

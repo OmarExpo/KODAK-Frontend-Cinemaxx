@@ -55,3 +55,7 @@ h1 {
 .schedule-date-button {
   padding: 15px;
 }
+
+.slider-movie-poster {
+  max-width: 200px;
+}
