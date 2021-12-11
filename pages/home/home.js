@@ -26,34 +26,31 @@ export default () => {
     slotButtonArray = [],
     hallButtonArray = [];
 
+  // renders buttons of schedule dates for a week from current date
   (function renderDateButtons() {
-    let today = new Date();
-    let nextday = new Date();
-    let day = new Date().getDate();
-    let month = today.getMonth();
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
 
     for (let i = 1; i <= 7; i++) {
-      if (day <= 9 || month <= 9) {
-        day = "0" + day;
-        month = "0" + month;
-      }
-
-      let btn = document.createElement("button");
-      let innertextValue =
-        nextday.getFullYear() + "-" + (nextday.getMonth() + 1) + "-" + day;
-      btn.innerText = innertextValue;
-      displayDiv.appendChild(btn);
-      btn.setAttribute("class", "buttonClass");
-
-      nextday.setDate(today.getDate() + i);
-
-      day = nextday.getDate();
-      buttonArray.push(btn);
+      let dateButton = document.createElement("button");
+      let constructedDate =
+        date.getFullYear() +
+        "-" +
+        (month < 10 ? "0" + month : month) +
+        "-" +
+        (day < 10 ? "0" + day : day);
+      dateButton.innerText = constructedDate;
+      displayDiv.appendChild(dateButton);
+      dateButton.setAttribute("class", "schedule-date-button");
+      date.setDate(date.getDate() + 1);
+      day = date.getDate();
+      buttonArray.push(dateButton);
     }
 
-    buttonArray.forEach((btn) => {
-      btn.addEventListener("click", (event) => {
-        selectedDate = btn.innerText;
+    buttonArray.forEach((dateButton) => {
+      dateButton.addEventListener("click", (event) => {
+        selectedDate = dateButton.innerText;
         buttonArray.map((button) => {
           button.style.backgroundColor = "white";
         });
@@ -98,11 +95,12 @@ export default () => {
       movieDisplayCard.style.display = "block";
 
       const movieDisplayUlObj = document.querySelector(".movieDisplayClass");
+      console.log(selectedDate, selectedSlot, selectedHall);
       const apiUrl = `http://3.90.205.148/schedules/${selectedDate}/${selectedSlot}/${selectedHall}`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((scheduleData) => {
-          movieid = scheduleData[0].movieId;
+          movieid = scheduleData[0].movieId ? scheduleData[0].movieId : movieid;
           const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
           fetch(apiUrl1)
             .then((response) => response.json())
