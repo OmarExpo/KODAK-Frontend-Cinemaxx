@@ -3,9 +3,9 @@ export default (auth) => {
 	let useremail = "";
 	let userId = "";
 
-	const secondDiv = document.querySelector("#div2");
-	const firstDiv = document.querySelector("#div1");
-	const thirdDiv = document.querySelector("#div3");
+	const secondDiv = document.querySelector(".div2");
+	const firstDiv = document.querySelector(".div1");
+	const thirdDiv = document.querySelector(".div3");
 	const signoutBtn = document.querySelector(".signOut");
 	signoutBtn.addEventListener("click", () => {
 		utils.logout(auth);
@@ -14,13 +14,12 @@ export default (auth) => {
 	thirdDiv.style.display = "none";
 	//signup function
 	function signUp() {
-		const first_name = document.querySelector("#fname_field");
-		const last_name = document.querySelector("#lname_field");
-		const birth_date = document.querySelector("#date_birth");
-		const userphone = document.querySelector("#number_field");
-		const useremail = document.querySelector("#email_field");
-		const userpassword = document.querySelector("#password_field");
-		console.log(birth_date.value);
+		const first_name = document.querySelector(".fname_field");
+		const last_name = document.querySelector(".lname_field");
+		const birth_date = document.querySelector(".date_birth");
+		const userphone = document.querySelector(".number_field");
+		const useremail = document.querySelector(".email_field");
+		const userpassword = document.querySelector(".password_field");
 
 		const promise = auth
 			.createUserWithEmailAndPassword(useremail.value, userpassword.value)
@@ -46,6 +45,7 @@ export default (auth) => {
 			})
 			.then(() => {
 				alert("successfully created user and its database.");
+				location.reload();
 			});
 
 		promise.catch((e) => alert(e.message));
@@ -64,9 +64,9 @@ export default (auth) => {
 				if (useremail === "admin@gmail.com") {
 					localStorage.setItem("username", "admin@gmail.com");
 
-					window.location = "http://127.0.0.1:5501/#/admin";
+					location.href = "/#/admin";
 				} else {
-					window.location = "http://127.0.0.1:5501/";
+					location.href = "/";
 				}
 			})
 			.catch((error) => {
@@ -77,19 +77,17 @@ export default (auth) => {
 	//active user to homepage
 	window.auth.onAuthStateChanged((user) => {
 		if (user) {
-			localStorage.clear();
+			//localStorage.clear();
 			useremail = user.email;
 			userId = user.uid;
 			if (localStorage["username"] === "admin@gmail.com") {
 				localStorage.setItem("username", "admin@gmail.com");
-				window.location = "http://127.0.0.1:5501/#/admin";
+				window.location = "/#/admin";
 			} else {
 				localStorage.setItem("username", user.email);
 			}
-
-			//window.location = "http://127.0.0.1:5501/";
 		} else {
-			alert("No Active user Found");
+			//alert("No Active user Found");
 		}
 	});
 
@@ -112,6 +110,8 @@ export default (auth) => {
 				birth_date: birth_date,
 			});
 	}
+	// This code  fetchs user data from firebase database and displays
+	/*
 	function showDetail() {
 		firstDiv.style.display = "none";
 		secondDiv.style.display = "none";
@@ -121,7 +121,7 @@ export default (auth) => {
 		const birth_date = document.querySelector(".birth_date");
 		const userphone = document.querySelector(".number");
 		const useremail = document.querySelector(".email");
-		/*
+	
 		var leadsRef = window.database.ref("user");
 		leadsRef.on("value", function (snapshot) {
 			snapshot.forEach(function (childSnapshot) {
@@ -134,12 +134,12 @@ export default (auth) => {
 				//useremail.innerHTML = "Email:- " + childData.email;
 			});
 		});
-		*/
+		
 	}
-
+*/
 	function showTwo() {
-		const divone = document.querySelector("#div1");
-		const divtwo = document.querySelector("#div2");
+		const divone = document.querySelector(".div1");
+		const divtwo = document.querySelector(".div2");
 		divone.style.display = "none";
 		divtwo.style.display = "block";
 	}
@@ -161,7 +161,7 @@ export default (auth) => {
 	});
 
 	function addUser(data) {
-		fetch("http://54.90.120.97/users/adduser", {
+		fetch("http://3.90.205.148/users/adduser", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

@@ -1,158 +1,37 @@
 export default () => {
 	const displayDiv = document.querySelector(".timeslots");
-	const div1object = document.querySelector("#div1");
-	const div2object = document.querySelector("#div2");
-	const div3object = document.querySelector("#div3");
-	const div4object = document.querySelector("#div4");
-	const div5object = document.querySelector("#div5");
+	const div1object = document.querySelector(".div1-date");
+	const div2object = document.querySelector(".div2-time");
+	const div3object = document.querySelector(".div3-halls");
+	const div4object = document.querySelector(".div4-movie");
+	const div5object = document.querySelector(".div5-seats");
 	const login_nav_obj = document.querySelector("#loginLink");
 	const headerTag_element = document.querySelector(".headder_tag");
-
-	if ("username" in localStorage) {
-		login_nav_obj.innerHTML = localStorage["username"] + " Logout";
-	} else {
-		login_nav_obj.innerHTML = "Signin Or Register";
-	}
-
+	const mainpageBtn = document.querySelector("#main-page");
 	let today = new Date();
 	let nextday = new Date();
 	let freeseats_button_array = [];
-
 	let day = new Date().getDate();
 	let month = today.getMonth();
 	let movieid = 0;
 	let moviename = "";
 	let selected_seat = 0;
-
 	let user_id = 0;
-
-	get_userid_by_email(localStorage.username);
-
 	let selectedDate = "";
 	let selectedSlot = "";
 	let selectedHall = "";
-	let buttonArray = [];
 	let slotButtonArray = [];
 	let hallButtonArray = [];
-	for (let i = 1; i <= 7; i++) {
-		if (day <= 9 || month <= 9) {
-			day = "0" + day;
-			month = "0" + month;
-		}
+	let buttonArray = [];
 
-		let btn = document.createElement("button");
-		let innertextValue =
-			nextday.getFullYear() + "-" + (nextday.getMonth() + 1) + "-" + day;
-		btn.innerText = innertextValue;
-		displayDiv.appendChild(btn);
-		btn.setAttribute("class", "buttonClass");
+	reloadThePage(mainpageBtn);
 
-		nextday.setDate(today.getDate() + i);
+	getUseridByEmail(localStorage.username);
+	detectUser();
 
-		day = nextday.getDate();
-		buttonArray.push(btn);
-	}
-	console.log(buttonArray);
-	//let clickedBtn = document.querySelector(".buttonClass");
-	buttonArray.forEach((btn) => {
-		btn.addEventListener("click", () => {
-			selectedDate = btn.innerText;
-			console.log(selectedDate);
-			displaySlots();
-		});
-	});
-
-	function displaySlots() {
-		div1object.style.display = "none";
-		div2object.style.display = "block";
-		div3object.style.display = "none";
-		div4object.style.display = "none";
-		div5object.style.display = "none";
-	}
-	function displayHalls() {
-		div1object.style.display = "none";
-		div2object.style.display = "none";
-		div3object.style.display = "block";
-		div4object.style.display = "none";
-		div5object.style.display = "none";
-	}
-	function displayMovies() {
-		div1object.style.display = "none";
-		div2object.style.display = "none";
-		div3object.style.display = "none";
-		div4object.style.display = "block";
-		div5object.style.display = "none";
-	}
-	function displaySeats() {
-		div1object.style.display = "none";
-		div2object.style.display = "none";
-		div3object.style.display = "none";
-		div4object.style.display = "none";
-		div5object.style.display = "block";
-	}
-	const moringButtonObject = document.querySelector("#morning");
-	slotButtonArray.push(moringButtonObject);
-	const afternoonButtonObject = document.querySelector("#afternoon");
-	slotButtonArray.push(afternoonButtonObject);
-	const eveningButtonObject = document.querySelector("#evening");
-	slotButtonArray.push(eveningButtonObject);
-	console.log(slotButtonArray);
-
-	slotButtonArray.forEach((slot) => {
-		slot.addEventListener("click", () => {
-			selectedSlot = slot.innerText;
-			displayHalls();
-		});
-	});
-	const hallbuttonAobject = document.querySelector("#A");
-	hallButtonArray.push(hallbuttonAobject);
-	const hallbuttonBobject = document.querySelector("#B");
-	hallButtonArray.push(hallbuttonBobject);
-	const hallbuttonCobject = document.querySelector("#C");
-	hallButtonArray.push(hallbuttonCobject);
-	hallButtonArray.forEach((hall) => {
-		hall.addEventListener("click", () => {
-			selectedHall = hall.id;
-			displayMovies();
-
-			const movieDisplayUlObj = document.querySelector(".movieDisplayClass");
-			const apiUrl = `http://3.90.205.148/schedules/${selectedDate}/${selectedSlot}/${selectedHall}`;
-			fetch(apiUrl)
-				.then((response) => response.json())
-				.then((scheduleData) => {
-					movieid = scheduleData[0].movieId;
-					const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
-					fetch(apiUrl1)
-						.then((response) => response.json())
-						.then((movieData) => {
-							moviename = movieData[0].title;
-							const movieTitleobj = document.createElement("h1");
-							movieTitleobj.innerHTML = movieData[0].title;
-							const buttonFreeSeats = document.createElement("button");
-							buttonFreeSeats.innerText = "show free seats";
-							const descriptionObject = document.createElement("P");
-							descriptionObject.innerHTML = movieData[0].story;
-							movieDisplayUlObj.appendChild(movieTitleobj);
-							get_image_url_by_movie_name(moviename, movieDisplayUlObj);
-							movieDisplayUlObj.appendChild(descriptionObject);
-							const free_seats_buttonobj =
-								document.querySelector("#seatdisplay");
-							const cardBodyobj = document.querySelector(".showseats");
-							free_seats_buttonobj.addEventListener("click", () => {
-								displaySeats();
-								const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${selectedDate}/${selectedHall}/${selectedSlot}`;
-								createSeatsArrayFromApi(16, apiUrl3);
-							});
-						})
-						.catch((error) => {
-							console.log(error);
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-				});
-		});
-	});
+	createDatesButtons();
+	createTimeSlotButton();
+	createHallsButton();
 
 	///-------------------------------------------------------------------
 
@@ -163,7 +42,7 @@ export default () => {
 		}
 		//console.log(freeseats);
 		const trElement = document.querySelector(".tr");
-		let counter = 0;
+
 		fetch(apistring)
 			.then((response) => response.json())
 			.then((seatsData) => {
@@ -175,27 +54,16 @@ export default () => {
 						}
 					}
 
-					if (counter % 4 === 0) {
-						const newTd = document.createElement("td");
-						const newTr = document.createElement("tr");
-						const buttonObj = document.createElement("button");
-						buttonObj.innerText = seat.seatNumber;
-						freeseats_button_array.push(buttonObj);
-						newTd.style.backgroundColor = "green";
-						newTd.appendChild(buttonObj);
-						trElement.appendChild(newTr);
-						trElement.appendChild(newTd);
-					} else {
-						const newTd = document.createElement("td");
-						const buttonObj = document.createElement("button");
-						buttonObj.innerText = seat.seatNumber;
-						freeseats_button_array.push(buttonObj);
-						newTd.style.backgroundColor = "green";
-						newTd.appendChild(buttonObj);
-						trElement.appendChild(newTd);
-					}
-
-					counter++;
+					const newTd = document.createElement("td");
+					const newTr = document.createElement("tr");
+					const buttonObj = document.createElement("button");
+					buttonObj.innerText = seat.seatNumber;
+					freeseats_button_array.push(buttonObj);
+					newTd.style.backgroundColor = "green";
+					newTd.style.textAlign = "center";
+					newTd.appendChild(buttonObj);
+					trElement.appendChild(newTr);
+					trElement.appendChild(newTd);
 				});
 				for (let i = 0; i < freeseats.length; i++) {
 					const newTd = document.createElement("td");
@@ -203,6 +71,7 @@ export default () => {
 					buttonObj.innerText = freeseats[i];
 					buttonObj.disabled = "true";
 					newTd.style.backgroundColor = "red";
+					newTd.style.textAlign = "center";
 					newTd.appendChild(buttonObj);
 					trElement.appendChild(newTd);
 				}
@@ -262,7 +131,7 @@ export default () => {
 	}
 
 	//------------------------------------------------------------------------------Getting userid from api using email-------------------------------------------------------
-	function get_userid_by_email(useremail) {
+	function getUseridByEmail(useremail) {
 		const api_for_id_toget_user = `http://3.90.205.148/users/${useremail}`;
 		fetch(api_for_id_toget_user)
 			.then((response) => response.json())
@@ -273,7 +142,7 @@ export default () => {
 
 	//--------------------------------fetching poster_url from api---------------------------
 
-	function get_image_url_by_movie_name(movie_name, elementToattach) {
+	function getImageUrlByMovieName(movie_name, elementToattach) {
 		return fetch(
 			`https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${movie_name}`
 		)
@@ -293,5 +162,117 @@ export default () => {
 						elementToattach.appendChild(movie_img_element);
 					});
 			});
+	}
+
+	function detectUser() {
+		if ("username" in localStorage) {
+			login_nav_obj.innerHTML = localStorage["username"] + " Logout";
+		} else {
+			login_nav_obj.innerHTML = "Signin Or Register";
+		}
+	}
+
+	function createDatesButtons() {
+		for (let i = 1; i <= 7; i++) {
+			if (day <= 9 || month <= 9) {
+				day = "0" + day;
+				month = "0" + month;
+			}
+			let btn = document.createElement("button");
+			let innertextValue =
+				nextday.getFullYear() + "-" + (nextday.getMonth() + 1) + "-" + day;
+			btn.innerText = innertextValue;
+			displayDiv.appendChild(btn);
+			btn.setAttribute("class", "buttonClass");
+			nextday.setDate(today.getDate() + i);
+			day = nextday.getDate();
+			buttonArray.push(btn);
+		}
+		buttonArray.forEach((btn) => {
+			btn.addEventListener("click", () => {
+				selectedDate = btn.innerText;
+				displayContent("none", "block", "none", "none", "none");
+			});
+		});
+	}
+	function reloadThePage(btnObject) {
+		btnObject.addEventListener("click", () => {
+			location.reload();
+		});
+	}
+	function displayContent(val1, val2, val3, val4, val5) {
+		div1object.style.display = `${val1}`;
+		div2object.style.display = `${val2}`;
+		div3object.style.display = `${val3}`;
+		div4object.style.display = `${val4}`;
+		div5object.style.display = `${val5}`;
+	}
+	function createTimeSlotButton() {
+		const moringButtonObject = document.querySelector("#morning");
+		slotButtonArray.push(moringButtonObject);
+		const afternoonButtonObject = document.querySelector("#afternoon");
+		slotButtonArray.push(afternoonButtonObject);
+		const eveningButtonObject = document.querySelector("#evening");
+		slotButtonArray.push(eveningButtonObject);
+		console.log(slotButtonArray);
+
+		slotButtonArray.forEach((slot) => {
+			slot.addEventListener("click", () => {
+				selectedSlot = slot.innerText;
+				displayContent("none", "none", "block", "none", "none");
+			});
+		});
+	}
+
+	function createHallsButton() {
+		const hallbuttonAobject = document.querySelector("#A");
+		hallButtonArray.push(hallbuttonAobject);
+		const hallbuttonBobject = document.querySelector("#B");
+		hallButtonArray.push(hallbuttonBobject);
+		const hallbuttonCobject = document.querySelector("#C");
+		hallButtonArray.push(hallbuttonCobject);
+		hallButtonArray.forEach((hall) => {
+			hall.addEventListener("click", () => {
+				selectedHall = hall.id;
+				displayContent("none", "none", "none", "block", "none");
+
+				const movieDisplayUlObj = document.querySelector(".movie-display");
+				const apiUrl = `http://3.90.205.148/schedules/${selectedDate}/${selectedSlot}/${selectedHall}`;
+				fetch(apiUrl)
+					.then((response) => response.json())
+					.then((scheduleData) => {
+						movieid = scheduleData[0].movieId;
+						const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
+						fetch(apiUrl1)
+							.then((response) => response.json())
+							.then((movieData) => {
+								moviename = movieData[0].title;
+								const movieTitleobj = document.createElement("h1");
+								movieTitleobj.innerHTML = movieData[0].title;
+								const buttonFreeSeats = document.createElement("button");
+								buttonFreeSeats.innerText = "show free seats";
+								const descriptionObject = document.createElement("P");
+								descriptionObject.innerHTML = movieData[0].story;
+								movieDisplayUlObj.appendChild(movieTitleobj);
+								getImageUrlByMovieName(moviename, movieDisplayUlObj);
+								movieDisplayUlObj.appendChild(descriptionObject);
+								const free_seats_buttonobj =
+									document.querySelector("#seatdisplay");
+								//const cardBodyobj = document.querySelector(".showseats");
+								free_seats_buttonobj.addEventListener("click", () => {
+									displayContent("none", "none", "none", "none", "block");
+									const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${selectedDate}/${selectedHall}/${selectedSlot}`;
+									createSeatsArrayFromApi(16, apiUrl3);
+								});
+							})
+							.catch((error) => {
+								console.log(error);
+							})
+							.catch((error) => {
+								console.log(error);
+							});
+					});
+			});
+		});
 	}
 };

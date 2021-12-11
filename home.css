@@ -29,25 +29,23 @@ ul {
 	list-style-type: none;
 }
 
-* {
-	box-sizing: border-box;
-}
 html {
 	font-size: 16px;
 }
 
 td {
-	width: 20px;
-	height: 20px;
-
 	border: 1px solid rgb(255, 3, 3);
 }
 
-.table {
-	border-spacing: 2em;
-	overflow: auto;
-}
 h1 {
 	text-align: center;
 	color: blue;
+}
+table {
+	border-collapse: collapse;
+	overflow-y: auto;
+	overflow-x: auto;
+	border-spacing: 0;
+	width: 50%;
+	border: 1px solid #ddd;
 }

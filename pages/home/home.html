@@ -52,77 +52,62 @@
 
 <div class="container">
 	<div class="row">
-		<div id="div1">
-			<div class="col-sm">
-				<div class="card">
-					<div class="card-title">
-						<h1>Our schedules</h1>
-						<div class="card-body">
-							<div class="timeslots"></div>
-						</div>
+		<div class="div1-date">
+			<div class="card">
+				<h1>Our schedules</h1>
+				<div class="card-body">
+					<div class="timeslots"></div>
+				</div>
+			</div>
+		</div>
+		<div class="div2-time" style="display: none">
+			<div class="card">
+				<div class="card-body">
+					<div class="timeslots">
+						<button id="morning">Morning</button>
+						<button id="afternoon">Afternoon</button>
+						<button id="evening">Evening</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="div2" style="display: none">
-			<div class="col-sm">
-				<div class="card">
-					<div class="card-title">
-						<div class="card-body">
-							<div class="timeslots">
-								<button id="morning">Morning</button>
-								<button id="afternoon">Afternoon</button>
-								<button id="evening">Evening</button>
+		<div class="div3-halls" style="display: none">
+			<div class="card">
+				<div class="card-body">
+					<div class="timeslots">
+						<button id="A">Hall A</button>
+						<button id="B">Hall B</button>
+						<button id="C">Hall C</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="div4-movie" style="display: none">
+			<div class="card">
+				<div class="card-body">
+					<ul class="movie-display"></ul>
+					<button id="seatdisplay">Free seats</button>
+				</div>
+			</div>
+		</div>
+		<div class="div5-seats" style="display: none">
+			<div class="card">
+				<h1 class="headder_tag">
+					Green available seats and red sold out seats.
+				</h1>
+				<div class="card-body">
+					<div>
+						<div class="hall">
+							<div class="table-responsive">
+								<table class="table table-sm">
+									<tr class="tr">
+										<td class="td"></td>
+									</tr>
+								</table>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="div3" style="display: none">
-			<div class="col-sm">
-				<div class="card">
-					<div class="card-title">
-						<div class="card-body">
-							<div class="timeslots">
-								<button id="A">Hall A</button>
-								<button id="B">Hall B</button>
-								<button id="C">Hall C</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="div4" style="display: none">
-			<div class="col-sm">
-				<div class="card">
-					<div class="card-title">
-						<div class="card-body">
-							<ul class="movieDisplayClass"></ul>
-							<button id="seatdisplay">Free seats</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="div5" style="display: none">
-			<div class="col-sm">
-				<div class="card">
-					<div class="card-title">
-						<h1 class="headder_tag">
-							Green available seats and red sold out seats.
-						</h1>
-						<div class="card-body">
-							<div>
-								<div class="hall">
-									<table class="table">
-										<tr class="tr"></tr>
-									</table>
 
-									<div class="conformation_message"></div>
-								</div>
-							</div>
+							<span class="conformation_message"></span>
+							<button id="main-page">Go to main page</button>
 						</div>
 					</div>
 				</div>
