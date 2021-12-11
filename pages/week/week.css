@@ -1,0 +1,20 @@
+.movie-details {
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+}
+
+.movie-details div {
+  overflow: hidden;
+  justify-items: center;
+  margin: 0;
+  min-width: 100px;
+}
+
+.movie-details div * {
+  text-align: center;
+}
+
+.movie-details div img {
+  max-width: 50%;
+  height: auto;
+}
