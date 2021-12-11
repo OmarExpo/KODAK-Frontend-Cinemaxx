@@ -11,10 +11,11 @@ export default () => {
   "username" in localStorage
     ? (login_nav_obj.innerHTML = localStorage["username"] + " Logout")
     : (login_nav_obj.innerHTML = "Signin Or Register");
-  let user_id = 3;
+  let user_id = 0;
 
-  (function getUseridByEmail(useremail) {
-    const api_for_id_toget_user = `http://3.90.205.148/users/${useremail}`;
+  (function getUseridByEmail() {
+    let userEmail = localStorage.username;
+    const api_for_id_toget_user = `http://3.90.205.148/users/${userEmail}`;
     fetch(api_for_id_toget_user)
       .then((response) => response.json())
       .then((userData) => {
