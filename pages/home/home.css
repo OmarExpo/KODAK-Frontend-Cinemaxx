@@ -45,3 +45,7 @@
 .confirmation_message {
   min-height: 100px;
 }
+
+marquee figure img {
+  max-height: 200px;
+}
