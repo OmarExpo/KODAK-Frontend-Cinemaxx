@@ -107,6 +107,8 @@ export default () => {
   let showMovieButton = document.getElementById("show-button");
   showMovieButton.addEventListener("click", function () {
     movieDisplayCard.style.display = "block";
+    const trElement = document.querySelector(".tr");
+    trElement.innerHTML = "";
     fetchAndRenderMovie(selectedDate, selectedSlot, selectedHall);
   });
 
@@ -188,13 +190,13 @@ function createSeatsArrayFromApi(
   user_id,
   selected_seat
 ) {
-  let headerTag_element = document.querySelector(".headder_tag");
   let message_displayObj = document.querySelector(".confirmation_message");
   let freeseats = [];
   for (let i = 1; i <= totalSeats; i++) {
     freeseats.push(i);
   }
   const trElement = document.querySelector(".tr");
+  trElement.innerHTML = "";
   let counter = 0;
   fetch(apistring)
     .then((response) => response.json())
