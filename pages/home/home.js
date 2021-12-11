@@ -7,6 +7,10 @@ export default () => {
   const movieDiv = document.querySelector("#movie-div");
   const login_nav_obj = document.querySelector("#loginLink");
 
+  const headerTag_element = document.querySelector(".headder_tag");
+
+  const message_displayObj = document.querySelector(".confirmation_message");
+
   // user
   "username" in localStorage
     ? (login_nav_obj.innerHTML = localStorage["username"] + " Logout")
@@ -184,7 +188,8 @@ function createSeatsArrayFromApi(
   user_id,
   selected_seat
 ) {
-  const headerTag_element = document.querySelector(".headder_tag");
+  let headerTag_element = document.querySelector(".headder_tag");
+  let message_displayObj = document.querySelector(".confirmation_message");
   let freeseats = [];
   for (let i = 1; i <= totalSeats; i++) {
     freeseats.push(i);
@@ -237,17 +242,29 @@ function createSeatsArrayFromApi(
           selected_seat = btn.innerText;
 
           if (typeof localStorage.username !== "undefined") {
-            const connformation = confirm(
-              "Do you want to reserve seat number:- " + btn.innerText + "?"
+            const confirmation = confirm(
+              "Do you want to reserve seat number " + btn.innerText + "?"
             );
-            if (connformation) {
+            if (confirmation) {
+              message_displayObj.innerHTML = "";
+              console.log(message_displayObj);
+              let modal = document.getElementById("myModal");
+              modal.style.display = "block";
+              let span = document.getElementsByClassName("close")[0];
+              span.addEventListener("click", function () {
+                modal.style.display = "none";
+              });
+
+              window.addEventListener("click", function (event) {
+                if (event.target == modal) {
+                  modal.style.display = "none";
+                }
+              });
+
               const api4 = `http://3.90.205.148/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${selected_seat}`;
               fetch(api4)
                 .then((response) => response.json())
                 .then((reserved_seat) => {
-                  const message_displayObj = document.querySelector(
-                    ".conformation_message"
-                  );
                   const messageHeader = document.createElement("h3");
                   let objectLength = Object.keys(reserved_seat).length;
                   if (objectLength > 0) {
@@ -260,7 +277,6 @@ function createSeatsArrayFromApi(
                     btn.disabled = "true";
                     trElement.style.display = "none";
 
-                    headerTag_element.innerHTML = "Your reservation datails.";
                     const print_btn = document.createElement("button");
                     print_btn.className = "print_btn";
                     print_btn.innerText = "Print";

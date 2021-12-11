@@ -5,26 +5,26 @@ import renderToday from "./pages/today/todayRoute.js";
 import renderWeek from "./pages/week/weekRoute.js";
 
 export default function () {
-	window.router = new Navigo("/", { hash: true });
-	console.log(window.auth);
-	router
-		.on({
-			"/": () => {
-				renderHome().then(router.updatePageLinks);
-			},
+  window.router = new Navigo("/", { hash: true });
+  console.log(window.auth);
+  router
+    .on({
+      "/": () => {
+        renderHome().then(router.updatePageLinks);
+      },
 
-			login: () => {
-				renderLogin(window.auth);
-			},
-			admin: () => {
-				renderAdmin();
-			},
-			today: () => {
-				renderToday();
-			},
-			week: () => {
-				renderWeek();
-			},
-		})
-		.resolve();
+      login: () => {
+        renderLogin(window.auth);
+      },
+      admin: () => {
+        renderAdmin();
+      },
+      today: () => {
+        renderToday();
+      },
+      week: () => {
+        renderWeek();
+      },
+    })
+    .resolve();
 }

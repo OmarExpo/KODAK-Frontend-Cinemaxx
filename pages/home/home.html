@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<div class=".header-logo-desc"></div>
+
 <div id="slider" style="position: relative">
   <!-- <marquee behavior="alternate" direction="left">
     <figure>
@@ -58,81 +58,36 @@
 <hr />
 
 <div class="container">
-  <div class="row">
-    <div id="main-content-card" class="display-div">
-      <div class="col-sm">
-        <div class="card">
-          <div class="card-title">
-            <h1>Our schedules</h1>
-            <div class="card-body">
-              <div class="timeslots"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="timeslots-card" class="display-div">
-      <div class="col-sm">
-        <div class="card">
-          <div class="card-title">
-            <div class="card-body">
-              <div class="timeslots">
-                <button class="timeslot-button">Morning</button>
-                <button class="timeslot-button">Afternoon</button>
-                <button class="timeslot-button">Evening</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="halls-card" class="display-div">
-      <div class="col-sm">
-        <div class="card">
-          <div class="card-title">
-            <div class="card-body">
-              <div class="timeslots">
-                <button class="hall-button" id="A">Hall A</button>
-                <button class="hall-button" id="B">Hall B</button>
-                <button class="hall-button" id="C">Hall C</button>
-                <button id="show-button">show!</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="movie-display-card" class="display-div" style="display: none">
-      <div class="col-sm">
-        <div class="card">
-          <div class="card-title">
-            <div class="card-body">
-              <div id="movie-div"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="available-seats-card" class="display-div" style="display: none">
-      <div class="col-sm">
-        <div class="card">
-          <div class="card-title">
-            <h1 class="headder_tag">
-              Green available seats and red sold out seats.
-            </h1>
-            <div class="card-body">
-              <div>
-                <div class="hall">
-                  <table class="table">
-                    <tr class="tr"></tr>
-                  </table>
+  <div id="main-content-card" class="display-div">
+    <h1>Our schedules</h1>
+    <div class="timeslots"></div>
+  </div>
 
-                  <div class="conformation_message"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div id="timeslots-card" class="display-div">
+    <button class="timeslot-button">Morning</button>
+    <button class="timeslot-button">Afternoon</button>
+    <button class="timeslot-button">Evening</button>
+  </div>
+
+  <div id="halls-card" class="display-div">
+    <button class="hall-button" id="A">Hall A</button>
+    <button class="hall-button" id="B">Hall B</button>
+    <button class="hall-button" id="C">Hall C</button>
+    <button id="show-button">show!</button>
+  </div>
+
+  <div id="movie-display-card" class="display-div">
+    <div id="movie-div"></div>
+  </div>
+  <div id="available-seats-card" class="display-div" style="display: none">
+    <h1 class="headder_tag">Green available seats and red sold out seats.</h1>
+    <table class="table">
+      <tr class="tr"></tr>
+    </table>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close"><a href="/">&times;</a></span>
+        <div class="confirmation_message"></div>
       </div>
     </div>
   </div>
