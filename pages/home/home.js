@@ -123,19 +123,16 @@ export default () => {
 
   function renderMovie(movieData) {
     console.log(movieData);
-    moviename = movieData.title;
-    const movieTitleobj = document.createElement("h1");
-    movieTitleobj.innerHTML = movieData.title;
-    const buttonFreeSeats = document.createElement("button");
-    buttonFreeSeats.innerText = "show free seats";
-    const descriptionObject = document.createElement("P");
-    descriptionObject.innerHTML = movieData.story;
-    movieDiv.appendChild(movieTitleobj);
-    renderMoviePoster(moviename, movieDiv);
-    movieDiv.appendChild(descriptionObject);
-    let freeSeatsButton = document.createElement("button");
-    freeSeatsButton.innerHTML = "see free seats";
-    movieDiv.appendChild(freeSeatsButton);
+    movieDiv.innerHTML = `
+	 	<h1>${movieData.title ? movieData.title : "-"}</h1>
+		<p>${movieData.story ? movieData.story : "-"}</p>	  `;
+    renderMoviePoster(movieData.title, movieDiv);
+
+    setTimeout(() => {
+      let freeSeatsButton = document.createElement("button");
+      freeSeatsButton.innerHTML = "see free seats";
+      movieDiv.appendChild(freeSeatsButton);
+    }, 1000);
 
     freeSeatsButton.addEventListener("click", () => {
       availSeatsCard.style.display = "block";
