@@ -33,10 +33,11 @@ export default () => {
     slotButtonArray = [],
     hallButtonArray = [];
 
-  function mapBackgroundColor(array, color) {
+  function mapBackgroundColor(array, color, event) {
     array.map((item) => {
       item.style.backgroundColor = color;
     });
+    event.target.style.backgroundColor = "blue";
   }
 
   // render buttons of schedule dates for a week from current date
@@ -64,8 +65,7 @@ export default () => {
     buttonArray.forEach((dateButton) => {
       dateButton.addEventListener("click", (event) => {
         selectedDate = dateButton.innerText;
-        mapBackgroundColor(buttonArray, "white");
-        event.target.style.backgroundColor = "blue";
+        mapBackgroundColor(buttonArray, "white", event);
         timeslotsCard.style.display = "block";
       });
     });
@@ -79,8 +79,7 @@ export default () => {
     slotButtonArray.forEach((slot) => {
       slot.addEventListener("click", (event) => {
         selectedSlot = slot.innerText;
-        mapBackgroundColor(slotButtonArray, "white");
-        event.target.style.backgroundColor = "blue";
+        mapBackgroundColor(slotButtonArray, "white", event);
         timeslotsCard.style.display = "block";
         hallsCard.style.display = "block";
       });
@@ -94,8 +93,7 @@ export default () => {
     );
     hallButtonArray.forEach((hall) => {
       hall.addEventListener("click", (event) => {
-        mapBackgroundColor(hallButtonArray, "white");
-        event.target.style.backgroundColor = "blue";
+        mapBackgroundColor(hallButtonArray, "white", event);
         selectedHall = hall.id;
       });
     });
@@ -129,7 +127,6 @@ export default () => {
   }
 
   function renderMovie(movieData, date, slot, hall) {
-    console.log(movieData);
     movieDiv.innerHTML = `
 	 	<h1>${movieData.title ? movieData.title : "-"}</h1>
 		<p>${movieData.story ? movieData.story : "-"}</p>	  `;
@@ -140,10 +137,8 @@ export default () => {
       freeSeatsButton.innerHTML = "see free seats";
       movieDiv.appendChild(freeSeatsButton);
       freeSeatsButton.addEventListener("click", () => {
-        //availSeatsCard.innerHTML = ""
         availSeatsCard.style.display = "block";
         const bookSeatURL = `http://3.90.205.148/bookings/freeseats/${date}/${hall}/${slot}`;
-        //createSeatsArrayFromApi(;
 
         createSeatsArrayFromApi(
           16,
@@ -238,7 +233,6 @@ function createSeatsArrayFromApi(
         trElement.appendChild(newTd);
       }
       freeseats_button_array.forEach((btn) => {
-        console.log(btn);
         btn.addEventListener("click", () => {
           selected_seat = btn.innerText;
 
