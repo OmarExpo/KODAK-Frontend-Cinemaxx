@@ -1,11 +1,11 @@
-body {
+/* body {
   background-color: rgba(108, 108, 108, 0.8);
 }
 
-/* img {
+img {
   height: 300px;
   width: 20%;
-} */
+}
 
 table,
 th,
@@ -50,7 +50,7 @@ td {
 h1 {
   text-align: center;
   color: blue;
-}
+} */
 
 .schedule-date-button {
   padding: 15px;
