@@ -1,10 +1,11 @@
 export default () => {
   const displayDiv = document.querySelector(".timeslots");
-  const mainContentCard = document.querySelector("#main-content-card");
+  //const mainContentCard = document.querySelector("#main-content-card");
   const timeslotsCard = document.querySelector("#timeslots-card");
   const hallsCard = document.querySelector("#halls-card");
   const movieDisplayCard = document.querySelector("#movie-display-card");
   const availSeatsCard = document.querySelector("#available-seats-card");
+  const movieDiv = document.querySelector("#movie-div");
   const login_nav_obj = document.querySelector("#loginLink");
   const headerTag_element = document.querySelector(".headder_tag");
 
@@ -26,7 +27,13 @@ export default () => {
     slotButtonArray = [],
     hallButtonArray = [];
 
-  // renders buttons of schedule dates for a week from current date
+  function mapBackgroundColor(array, color) {
+    array.map((item) => {
+      item.style.backgroundColor = color;
+    });
+  }
+
+  // render buttons of schedule dates for a week from current date
   (function renderDateButtons() {
     let date = new Date();
     let day = date.getDate();
@@ -51,89 +58,82 @@ export default () => {
     buttonArray.forEach((dateButton) => {
       dateButton.addEventListener("click", (event) => {
         selectedDate = dateButton.innerText;
-        buttonArray.map((button) => {
-          button.style.backgroundColor = "white";
-        });
+        mapBackgroundColor(buttonArray, "white");
         event.target.style.backgroundColor = "blue";
         timeslotsCard.style.display = "block";
       });
     });
   })();
 
-  function displayNonetoAll() {
-    mainContentCard.style.display = "none";
-    timeslotsCard.style.display = "none";
-    hallsCard.style.display = "none";
-    movieDisplayCard.style.display = "none";
-    availSeatsCard.style.display = "none";
-  }
+  // slot buttons
+  (function renderSlotButtons() {
+    slotButtonArray = Array.from(
+      document.getElementsByClassName("timeslot-button")
+    );
 
-  const moringButtonObject = document.querySelector("#morning");
-  slotButtonArray.push(moringButtonObject);
-  const afternoonButtonObject = document.querySelector("#afternoon");
-  slotButtonArray.push(afternoonButtonObject);
-  const eveningButtonObject = document.querySelector("#evening");
-  slotButtonArray.push(eveningButtonObject);
-
-  slotButtonArray.forEach((slot) => {
-    slot.addEventListener("click", () => {
-      selectedSlot = slot.innerText;
-      displayNonetoAll();
-      hallsCard.style.display = "block";
+    slotButtonArray.forEach((slot) => {
+      slot.addEventListener("click", (event) => {
+        selectedSlot = slot.innerText;
+        mapBackgroundColor(slotButtonArray, "white");
+        event.target.style.backgroundColor = "blue";
+        timeslotsCard.style.display = "block";
+        hallsCard.style.display = "block";
+      });
     });
-  });
-  const hallbuttonAobject = document.querySelector("#A");
-  hallButtonArray.push(hallbuttonAobject);
-  const hallbuttonBobject = document.querySelector("#B");
-  hallButtonArray.push(hallbuttonBobject);
-  const hallbuttonCobject = document.querySelector("#C");
-  hallButtonArray.push(hallbuttonCobject);
+  })();
+
+  // hall buttons
+  hallButtonArray = Array.from(document.getElementsByClassName("hall-button"));
+
   hallButtonArray.forEach((hall) => {
-    hall.addEventListener("click", () => {
-      selectedHall = hall.id;
-      displayNonetoAll();
+    hall.addEventListener("click", (event) => {
+      mapBackgroundColor(hallButtonArray, "white");
+      event.target.style.backgroundColor = "blue";
       movieDisplayCard.style.display = "block";
 
-      const movieDisplayUlObj = document.querySelector(".movieDisplayClass");
+      selectedHall = hall.id;
+
       console.log(selectedDate, selectedSlot, selectedHall);
-      const apiUrl = `http://3.90.205.148/schedules/${selectedDate}/${selectedSlot}/${selectedHall}`;
-      fetch(apiUrl)
-        .then((response) => response.json())
-        .then((scheduleData) => {
-          movieid = scheduleData[0].movieId ? scheduleData[0].movieId : movieid;
-          const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
-          fetch(apiUrl1)
-            .then((response) => response.json())
-            .then((movieData) => {
-              moviename = movieData[0].title;
-              const movieTitleobj = document.createElement("h1");
-              movieTitleobj.innerHTML = movieData[0].title;
-              const buttonFreeSeats = document.createElement("button");
-              buttonFreeSeats.innerText = "show free seats";
-              const descriptionObject = document.createElement("P");
-              descriptionObject.innerHTML = movieData[0].story;
-              movieDisplayUlObj.appendChild(movieTitleobj);
-              get_image_url_by_movie_name(moviename, movieDisplayUlObj);
-              movieDisplayUlObj.appendChild(descriptionObject);
-              const free_seats_buttonobj =
-                document.querySelector("#seatdisplay");
-              const cardBodyobj = document.querySelector(".showseats");
-              free_seats_buttonobj.addEventListener("click", () => {
-                displayNonetoAll();
-                availSeatsCard.style.display = "block";
-                const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${selectedDate}/${selectedHall}/${selectedSlot}`;
-                createSeatsArrayFromApi(16, apiUrl3);
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
+      fetchAndRenderMovie(selectedDate, selectedSlot, selectedHall);
     });
   });
 
-  ///-------------------------------------------------------------------
+  function fetchAndRenderMovie(date, slot, hall) {
+    const apiUrl = `http://3.90.205.148/schedules/${date}/${slot}/${hall}`;
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((scheduleData) => {
+        console.log(scheduleData);
+        movieid = scheduleData[0].movieId ? scheduleData[0].movieId : movieid;
+        const apiUrl1 = `http://3.90.205.148/movies/${movieid}`;
+        fetch(apiUrl1)
+          .then((response) => response.json())
+          .then((movieData) => {
+            moviename = movieData[0].title;
+            const movieTitleobj = document.createElement("h1");
+            movieTitleobj.innerHTML = movieData[0].title;
+            const buttonFreeSeats = document.createElement("button");
+            buttonFreeSeats.innerText = "show free seats";
+            const descriptionObject = document.createElement("P");
+            descriptionObject.innerHTML = movieData[0].story;
+            movieDiv.appendChild(movieTitleobj);
+            get_image_url_by_movie_name(moviename, movieDiv);
+            movieDiv.appendChild(descriptionObject);
+            const free_seats_buttonobj = document.querySelector("#seatdisplay");
+            const cardBodyobj = document.querySelector(".showseats");
+            free_seats_buttonobj.addEventListener("click", () => {
+              availSeatsCard.style.display = "block";
+              const apiUrl3 = `http://3.90.205.148/bookings/freeseats/${date}/${hall}/${slot}`;
+              createSeatsArrayFromApi(16, apiUrl3);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+  }
 
+  ///-------------------------------------------------------------------
   let freeseats_button_array = [];
 
   function createSeatsArrayFromApi(totalSeats, apistring) {
@@ -248,7 +248,6 @@ export default () => {
   }
 
   //--------------------------------fetching poster_url from api---------------------------
-
   function get_image_url_by_movie_name(movie_name, elementToattach) {
     return fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${movie_name}`

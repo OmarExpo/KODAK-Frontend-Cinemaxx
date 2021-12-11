@@ -52,7 +52,7 @@
 
 <div class="container">
   <div class="row">
-    <div id="main-content-card">
+    <div id="main-content-card" class="display-div">
       <div class="col-sm">
         <div class="card">
           <div class="card-title">
@@ -64,49 +64,50 @@
         </div>
       </div>
     </div>
-    <div id="timeslots-card" style="display: none">
+    <div id="timeslots-card" class="display-div">
       <div class="col-sm">
         <div class="card">
           <div class="card-title">
             <div class="card-body">
               <div class="timeslots">
-                <button id="morning">Morning</button>
-                <button id="afternoon">Afternoon</button>
-                <button id="evening">Evening</button>
+                <button class="timeslot-button">Morning</button>
+                <button class="timeslot-button">Afternoon</button>
+                <button class="timeslot-button">Evening</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="halls-card" style="display: none">
+    <div id="halls-card" class="display-div">
       <div class="col-sm">
         <div class="card">
           <div class="card-title">
             <div class="card-body">
               <div class="timeslots">
-                <button id="A">Hall A</button>
-                <button id="B">Hall B</button>
-                <button id="C">Hall C</button>
+                <button class="hall-button" id="A">Hall A</button>
+                <button class="hall-button" id="B">Hall B</button>
+                <button class="hall-button" id="C">Hall C</button>
+                <button id="show-button">show!</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="movie-display-card" style="display: none">
+    <div id="movie-display-card" class="display-div" style="display: none">
       <div class="col-sm">
         <div class="card">
           <div class="card-title">
             <div class="card-body">
-              <ul class="movieDisplayClass"></ul>
+              <div id="movie-div"></div>
               <button id="seatdisplay">Free seats</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="available-seats-card" style="display: none">
+    <div id="available-seats-card" class="display-div" style="display: none">
       <div class="col-sm">
         <div class="card">
           <div class="card-title">
