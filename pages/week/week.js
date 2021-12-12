@@ -29,70 +29,36 @@ export default (auth) => {
 						fetch(`https://image.tmdb.org/t/p/w500/${posterPath}`)
 							.then((response) => response.blob())
 							.then((moviePicture) => {
-								if (count % 3 === 0) {
-									count++;
-									var objectURL = URL.createObjectURL(moviePicture);
-									const movie_img_element = document.createElement("img");
-									movie_img_element.setAttribute("src", `${objectURL}`);
-									movie_img_element.style.width = "300px";
-									movie_img_element.style.height = "300px";
+								var objectURL = URL.createObjectURL(moviePicture);
+								const movie_img_element = document.createElement("img");
+								movie_img_element.setAttribute("src", `${objectURL}`);
+								movie_img_element.style.width = "300px";
+								movie_img_element.style.height = "300px";
 
-									scheduleDetailElement.appendChild(cardBodyElement);
-									scheduleDetailElement.style.marginLeft = "30%";
-									scheduleDetailElement.style.display = "block";
+								scheduleDetailElement.appendChild(cardBodyElement);
+								scheduleDetailElement.style.marginLeft = "30%";
+								scheduleDetailElement.style.display = "block";
 
-									cardBodyElement.setAttribute("className", "card");
-									cardBodyElement.style.border = "1px solid black";
-									cardBodyElement.style.textAlign = "center";
-									cardBodyElement.style.backgroundColor = "cyan";
-									cardBodyElement.style.width = "80%";
-									cardBodyElement.style.padding = "5%";
+								cardBodyElement.setAttribute("className", "card");
+								cardBodyElement.style.border = "1px solid black";
+								cardBodyElement.style.textAlign = "center";
+								cardBodyElement.style.backgroundColor = "cyan";
+								cardBodyElement.style.width = "80%";
+								cardBodyElement.style.padding = "5%";
 
-									headingTagElement.innerHTML = movieTitle;
-									dateElement.innerHTML = "Date: " + showDate;
-									hallElement.innerHTML = "Hall: " + showHallName;
-									slotElement.innerHTML = "Time: " + showSlotName;
+								headingTagElement.innerHTML = movieTitle;
+								dateElement.innerHTML = "Date: " + showDate;
+								hallElement.innerHTML = "Hall: " + showHallName;
+								slotElement.innerHTML = "Time: " + showSlotName;
 
-									cardBodyElement.append(
-										headingTagElement,
-										movie_img_element,
-										dateElement,
-										hallElement,
-										slotElement,
-										brElement
-									);
-								} else {
-									count++;
-									var objectURL = URL.createObjectURL(moviePicture);
-									const movie_img_element = document.createElement("img");
-									movie_img_element.setAttribute("src", `${objectURL}`);
-									movie_img_element.style.width = "300px";
-									movie_img_element.style.height = "300px";
-
-									scheduleDetailElement.appendChild(cardBodyElement);
-									scheduleDetailElement.style.marginLeft = "30%";
-									scheduleDetailElement.style.display = "flex";
-
-									cardBodyElement.setAttribute("className", "card");
-									cardBodyElement.style.border = "1px solid black";
-									cardBodyElement.style.textAlign = "center";
-									cardBodyElement.style.backgroundColor = "cyan";
-									cardBodyElement.style.width = "80%";
-									cardBodyElement.style.padding = "5%";
-
-									headingTagElement.innerHTML = movieTitle;
-									dateElement.innerHTML = "Date: " + showDate;
-									hallElement.innerHTML = "Hall: " + showHallName;
-									slotElement.innerHTML = "Time: " + showSlotName;
-
-									cardBodyElement.append(
-										headingTagElement,
-										movie_img_element,
-										dateElement,
-										hallElement,
-										slotElement
-									);
-								}
+								cardBodyElement.append(
+									headingTagElement,
+									movie_img_element,
+									dateElement,
+									hallElement,
+									slotElement,
+									brElement
+								);
 							});
 					});
 			});

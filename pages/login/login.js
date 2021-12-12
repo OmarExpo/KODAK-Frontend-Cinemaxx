@@ -4,7 +4,6 @@ export default (auth) => {
 	let userId = "";
 
 	const secondDiv = document.querySelector(".div2");
-	const firstDiv = document.querySelector(".div1");
 	const thirdDiv = document.querySelector(".div3");
 	const signoutBtn = document.querySelector(".signOut");
 	signoutBtn.addEventListener("click", () => {
@@ -110,33 +109,7 @@ export default (auth) => {
 				birth_date: birth_date,
 			});
 	}
-	// This code  fetchs user data from firebase database and displays
-	/*
-	function showDetail() {
-		firstDiv.style.display = "none";
-		secondDiv.style.display = "none";
-		thirdDiv.style.display = "block";
-		const first_name = document.querySelector(".first_name");
-		const last_name = document.querySelector(".last_name");
-		const birth_date = document.querySelector(".birth_date");
-		const userphone = document.querySelector(".number");
-		const useremail = document.querySelector(".email");
-	
-		var leadsRef = window.database.ref("user");
-		leadsRef.on("value", function (snapshot) {
-			snapshot.forEach(function (childSnapshot) {
-				var childData = childSnapshot.val();
-				console.log(childData.first_name);
-				first_name.innerHTML = "First Name:- " + childData.first_name;
-				//last_name.innerHTML = "Last Name:- " + childData.last_name;
-				//birth_date.innerHTML = "Date of birth:- " + childData.birth_date;
-				//userphone.innerHTML = "Phone number:- " + childData.number;
-				//useremail.innerHTML = "Email:- " + childData.email;
-			});
-		});
-		
-	}
-*/
+
 	function showTwo() {
 		const divone = document.querySelector(".div1");
 		const divtwo = document.querySelector(".div2");
