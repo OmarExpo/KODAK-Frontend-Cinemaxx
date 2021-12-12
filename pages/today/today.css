@@ -1,16 +1,22 @@
-fieldset,
-fieldset > div {
-  display: grid;
-  justify-content: center;
+fieldset > div,
+.today-movies {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 20 auto 20 auto;
   margin: 30px;
-  background-color: rgba(206, 213, 235, 0.534);
   border-radius: 5px;
-  border: none;
+  color: rgba(206, 213, 235, 0.534);
+}
+fieldset {
+  border: solid;
+  border-color: rgba(206, 213, 235, 0.534);
+  padding: 0px;
 }
 
 fieldset > div {
-  width: 50vw;
-  text-align: center;
+  background-color: rgba(128, 128, 128, 0.404);
+  width: 70vw;
 }
 
 fieldset img {
@@ -19,7 +25,6 @@ fieldset img {
 }
 
 fieldset legend {
-  background-color: rgb(156, 154, 162);
   border-radius: 5px;
   text-align: right;
   font-size: 20px;
