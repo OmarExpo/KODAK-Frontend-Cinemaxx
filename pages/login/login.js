@@ -62,7 +62,7 @@ export default (auth) => {
         useremail = cred.user.email;
 
         if (useremail === "admin@gmail.com") {
-          localStorage.setItem("username", "admin@gmail.com");
+          localStorage.setItem("username", "hehe@gmail.com");
 
           window.location = "http://127.0.0.1:5501/#/admin";
         } else {

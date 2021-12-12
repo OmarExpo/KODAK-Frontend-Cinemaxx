@@ -65,8 +65,8 @@ export default () => {
     buttonArray.forEach((dateButton) => {
       dateButton.addEventListener("click", (event) => {
         selectedDate = dateButton.innerText;
-        mapBackgroundColor(buttonArray, "white", event);
-        timeslotsCard.style.display = "block";
+        mapBackgroundColor(buttonArray, "gray", event);
+        timeslotsCard.style.display = "flex";
       });
     });
   })();
@@ -79,9 +79,9 @@ export default () => {
     slotButtonArray.forEach((slot) => {
       slot.addEventListener("click", (event) => {
         selectedSlot = slot.innerText;
-        mapBackgroundColor(slotButtonArray, "white", event);
-        timeslotsCard.style.display = "block";
-        hallsCard.style.display = "block";
+        mapBackgroundColor(slotButtonArray, "gray", event);
+        timeslotsCard.style.display = "flex";
+        hallsCard.style.display = "flex";
       });
     });
   })();
@@ -93,7 +93,7 @@ export default () => {
     );
     hallButtonArray.forEach((hall) => {
       hall.addEventListener("click", (event) => {
-        mapBackgroundColor(hallButtonArray, "white", event);
+        mapBackgroundColor(hallButtonArray, "gray", event);
         selectedHall = hall.id;
       });
     });
@@ -102,6 +102,7 @@ export default () => {
   // define show movie button
   let showMovieButton = document.getElementById("show-button");
   showMovieButton.addEventListener("click", function () {
+    movieDiv.style.display = "block";
     movieDisplayCard.style.display = "block";
     const seatsDiv = document.getElementById("seats-div");
 
@@ -133,11 +134,12 @@ export default () => {
     movieDiv.innerHTML = `
 	 	<h1>${movieData.title ? movieData.title : "-"}</h1>
 		<p>${movieData.story ? movieData.story : "-"}</p>	  `;
-    //renderMoviePoster(movieData.title, movieDiv);
+    renderMoviePoster(movieData.title, movieDiv);
 
     setTimeout(() => {
       let freeSeatsButton = document.createElement("button");
       freeSeatsButton.innerHTML = "see free seats";
+      freeSeatsButton.setAttribute("id", "free-seats-button");
       movieDiv.appendChild(freeSeatsButton);
       freeSeatsButton.addEventListener("click", () => {
         availSeatsCard.style.display = "block";
@@ -221,32 +223,25 @@ function createSeatsArrayFromApi(
       freeSeatsButtonArray.forEach((btn) => {
         btn.addEventListener("click", () => {
           selected_seat = btn.innerText;
+          console.log(selected_seat);
 
+          console.log(localStorage.username);
           if (typeof localStorage.username !== "undefined") {
             const confirmation = confirm(
               "Do you want to reserve seat number " + btn.innerText + "?"
             );
             if (confirmation) {
-              message_displayObj.innerHTML = "";
-              let modal = document.getElementById("myModal");
-              modal.style.display = "block";
-              let span = document.getElementsByClassName("close")[0];
-              span.addEventListener("click", function () {
-                modal.style.display = "none";
-              });
+              console.log(confirmation);
 
-              window.addEventListener("click", function (event) {
-                if (event.target == modal) {
-                  modal.style.display = "none";
-                }
-              });
-
+              renderModal();
               const api4 = `http://3.90.205.148/bookings/${selectedDate}/${moviename}/${selectedHall}/${selectedSlot}/${user_id}/${selected_seat}`;
               fetch(api4)
                 .then((response) => response.json())
                 .then((reserved_seat) => {
+                  console.log("reserved_seat", reserved_seat);
                   const messageHeader = document.createElement("h3");
                   let objectLength = Object.keys(reserved_seat).length;
+                  console.log("objectLength", objectLength);
                   if (objectLength > 0) {
                     messageHeader.innerHTML = `You have reserved a seat number ${selected_seat},\n
 																		in hall no ${selectedHall} on ${selectedDate},${selectedSlot} show on\n
@@ -280,4 +275,16 @@ function createSeatsArrayFromApi(
     .catch((error) => {
       console.log(error);
     });
+}
+
+// ------- modal -------
+function renderModal() {
+  let message_displayObj = document.querySelector(".confirmation_message");
+  message_displayObj.innerHTML = "";
+  let modal = document.getElementById("myModal");
+  modal.style.display = "block";
+  let span = document.getElementsByClassName("close")[0];
+  span.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
 }

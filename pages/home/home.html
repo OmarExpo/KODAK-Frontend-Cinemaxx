@@ -72,23 +72,27 @@
     </figure>
   </marquee>
 </div>
-<hr />
-<h1>Welcome to Cinemaxx</h1>
-<hr />
+<div class="greeting-div">
+  <hr />
+  <h1>WELCOME TO KODAK CINEMA!</h1>
+  <p>find and book a ticket &#8595;</p>
+  <hr />
+</div>
 
 <div class="container">
   <div id="main-content-card" class="display-div">
-    <h1>Our schedules</h1>
-    <div class="timeslots"></div>
+    <div class="timeslots selection-buttons"></div>
+    <hr style="width: 70%; text-align: center; margin: auto; color: gray" />
   </div>
 
-  <div id="timeslots-card" class="display-div">
+  <div id="timeslots-card" class="display-div selection-buttons">
     <button class="timeslot-button">Morning</button>
     <button class="timeslot-button">Afternoon</button>
     <button class="timeslot-button">Evening</button>
   </div>
+  <hr style="width: 70%; text-align: center; margin: auto; color: gray" />
 
-  <div id="halls-card" class="display-div">
+  <div id="halls-card" class="display-div selection-buttons">
     <button class="hall-button" id="A">Hall A</button>
     <button class="hall-button" id="B">Hall B</button>
     <button class="hall-button" id="C">Hall C</button>
@@ -96,10 +100,11 @@
   </div>
 
   <div id="movie-display-card" class="display-div">
-    <div id="movie-div"></div>
+    <div id="movie-div" style="display: none"></div>
   </div>
   <div id="available-seats-card" class="display-div" style="display: none">
     <div id="seats-div"></div>
+    <span>click on a seat to book &#8593;</span>
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close"><a href="/">&times;</a></span>

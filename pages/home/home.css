@@ -1,14 +1,22 @@
+:root {
+  --bg-color: rgba(255, 255, 255, 0.454);
+  --light-text: rgb(199, 199, 199);
+}
+
 body {
   background-image: url("../../assets/backdrop.jpeg");
   margin: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.schedule-date-button {
-  padding: 15px;
+/* sliding images below nav */
+marquee figure img {
+  max-height: 200px;
 }
+
 #slider {
-  background-color: rgba(255, 255, 255, 0.708);
+  background-color: var(--bg-color);
+  margin-top: 20px;
 }
 
 .slider-movie-poster {
@@ -18,6 +26,77 @@ body {
   margin-bottom: 20px;
 }
 
+/* the main greeting text */
+.greeting-div {
+  color: var(--light-text);
+  text-align: center;
+  padding: 30px;
+}
+
+/* all the buttons for movie selection */
+.selection-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-row: 20px;
+}
+
+.selection-buttons button,
+#free-seats-button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(109, 109, 109);
+  color: var(--light-text);
+  margin: 15px;
+  max-width: 200px;
+}
+
+.selection-buttons button:hover,
+#free-seats-button:hover {
+  background-color: rgb(52, 55, 121);
+}
+
+#show-button {
+  background-color: rgb(85, 85, 104);
+}
+
+/* movie rendering section */
+#movie-div,
+#available-seats-card {
+  max-width: 80vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--bg-color);
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+#movie-div h1,
+#movie-div p {
+  padding: 20px;
+}
+
+#movie-div img {
+  max-width: 50vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.317),
+    0 6px 20px 0 rgba(0, 0, 0, 0.413);
+  padding: 20px;
+}
+
+#movie-div,
+#free-seats-button,
+#available-seats-card {
+  margin: 20 auto 20 auto;
+  padding: 20px;
+}
+
+/* modal functionality via css */
 .modal {
   display: none;
   position: fixed;
@@ -54,10 +133,7 @@ body {
   cursor: pointer;
 }
 
+/* confirmation message */
 .confirmation_message {
   min-height: 100px;
-}
-
-marquee figure img {
-  max-height: 200px;
 }
