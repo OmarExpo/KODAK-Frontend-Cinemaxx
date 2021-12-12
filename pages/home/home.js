@@ -103,8 +103,9 @@ export default () => {
   let showMovieButton = document.getElementById("show-button");
   showMovieButton.addEventListener("click", function () {
     movieDisplayCard.style.display = "block";
-    const trElement = document.querySelector(".tr");
-    trElement.innerHTML = "";
+    const seatsDiv = document.getElementById("seats-div");
+
+    seatsDiv.innerHTML = "";
     fetchAndRenderMovie(selectedDate, selectedSlot, selectedHall);
   });
 
@@ -132,7 +133,7 @@ export default () => {
     movieDiv.innerHTML = `
 	 	<h1>${movieData.title ? movieData.title : "-"}</h1>
 		<p>${movieData.story ? movieData.story : "-"}</p>	  `;
-    renderMoviePoster(movieData.title, movieDiv);
+    //renderMoviePoster(movieData.title, movieDiv);
 
     setTimeout(() => {
       let freeSeatsButton = document.createElement("button");
@@ -156,7 +157,7 @@ export default () => {
     }, 1000);
   }
 
-  function renderMoviePoster(movie_name, elementToattach) {
+  function renderMoviePoster(movie_name, parentElement) {
     return fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=eacfeabd8e111e3bea6edaa3358907aa&query=${movie_name}`
     )
@@ -167,14 +168,12 @@ export default () => {
           : "https://media.comicbook.com/files/img/default-movie.png";
         const moviePosterElement = document.createElement("img");
         moviePosterElement.setAttribute("src", movieImgSrc);
-        moviePosterElement.style.minWidth = "200px";
-        elementToattach.appendChild(moviePosterElement);
+        parentElement.appendChild(moviePosterElement);
       });
   }
 };
 
 /// -------------------------- free seats display -----------------------------------------
-let freeseats_button_array = [];
 
 function createSeatsArrayFromApi(
   totalSeats,
@@ -187,55 +186,39 @@ function createSeatsArrayFromApi(
   selected_seat
 ) {
   let message_displayObj = document.querySelector(".confirmation_message");
-  let freeseats = [];
-  for (let i = 1; i <= totalSeats; i++) {
-    freeseats.push(i);
-  }
-  const trElement = document.querySelector(".tr");
-  trElement.innerHTML = "";
-  let counter = 0;
+  const seatsDiv = document.getElementById("seats-div");
+  seatsDiv.innerHTML = "";
+
   fetch(apistring)
     .then((response) => response.json())
     .then((seatsData) => {
-      seatsData.forEach((seat) => {
-        for (let i = 0; i < freeseats.length; i++) {
-          if (freeseats[i] === seat.seatNumber) {
-            freeseats.splice(i, 1);
-          }
-        }
+      let freeSeatsButtonArray = [];
+      let hallSeatsArray = [];
+      let freeSeatsArray = [];
 
-        if (counter % 4 === 0) {
-          const newTd = document.createElement("td");
-          const newTr = document.createElement("tr");
-          const buttonObj = document.createElement("button");
-          buttonObj.innerText = seat.seatNumber;
-          freeseats_button_array.push(buttonObj);
-          newTd.style.backgroundColor = "green";
-          newTd.appendChild(buttonObj);
-          trElement.appendChild(newTr);
-          trElement.appendChild(newTd);
-        } else {
-          const newTd = document.createElement("td");
-          const buttonObj = document.createElement("button");
-          buttonObj.innerText = seat.seatNumber;
-          freeseats_button_array.push(buttonObj);
-          newTd.style.backgroundColor = "green";
-          newTd.appendChild(buttonObj);
-          trElement.appendChild(newTd);
-        }
-
-        counter++;
-      });
-      for (let i = 0; i < freeseats.length; i++) {
-        const newTd = document.createElement("td");
-        const buttonObj = document.createElement("button");
-        buttonObj.innerText = freeseats[i];
-        buttonObj.disabled = "true";
-        newTd.style.backgroundColor = "red";
-        newTd.appendChild(buttonObj);
-        trElement.appendChild(newTd);
+      // build all seats array and avail seats array to easily detect availability
+      for (let i = 0; i < totalSeats; i++) {
+        hallSeatsArray.push(i + 1);
       }
-      freeseats_button_array.forEach((btn) => {
+      for (let i = 0; i < seatsData.length; i++) {
+        freeSeatsArray.push(seatsData[i].seatNumber);
+      }
+
+      hallSeatsArray.forEach((seat) => {
+        const seatButton = document.createElement("button");
+        seatButton.innerText = seat;
+        seatsDiv.appendChild(seatButton);
+
+        if (freeSeatsArray.includes(seat)) {
+          seatButton.style.backgroundColor = "green";
+        } else {
+          seatButton.style.backgroundColor = "red";
+          seatButton.disabled = true;
+        }
+        freeSeatsButtonArray.push(seatButton);
+      });
+
+      freeSeatsButtonArray.forEach((btn) => {
         btn.addEventListener("click", () => {
           selected_seat = btn.innerText;
 
@@ -245,7 +228,6 @@ function createSeatsArrayFromApi(
             );
             if (confirmation) {
               message_displayObj.innerHTML = "";
-              console.log(message_displayObj);
               let modal = document.getElementById("myModal");
               modal.style.display = "block";
               let span = document.getElementsByClassName("close")[0];
@@ -273,7 +255,8 @@ function createSeatsArrayFromApi(
                     message_displayObj.appendChild(messageHeader);
                     btn.style.backgroundColor = "blue";
                     btn.disabled = "true";
-                    trElement.style.display = "none";
+
+                    seatsDiv.style.display = "none";
 
                     const print_btn = document.createElement("button");
                     print_btn.className = "print_btn";
