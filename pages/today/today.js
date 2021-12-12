@@ -1,63 +1,60 @@
 export default () => {
-	fetch(`http://3.90.205.148/schedules/today`)
-		.then((response) => response.json())
-		.then((scheduleDetails) => {
-			console.log(scheduleDetails);
-			const scheduleDetailElement = document.querySelector(".movie-details");
-			scheduleDetails.forEach((show) => {
-				const movieId = show.movieId;
+  fetch(`http://3.90.205.148/schedules/today`)
+    .then((response) => response.json())
+    .then((scheduleDetails) => {
+      const scheduleDetailElement = document.querySelector(".today-movies");
 
-				const showDate = show.date;
-				const showHallName = show.hallName;
-				const showSlotName = show.slotName;
+      scheduleDetails.forEach((show) => {
+        const movieId = show.movieId;
+        const movieDate = show.date;
+        const movieHall = show.hallName;
+        const movieSlot = show.slotName;
 
-				fetch(`http://3.90.205.148/movies/${movieId}`)
-					.then((response) => response.json())
-					.then((movieDetails) => {
-						const movieTitle = movieDetails[0].title;
-						const posterPath = movieDetails[0].posterLink;
-						const cardBodyElement = document.createElement("div");
-						const headingTagElement = document.createElement("h3");
-						const dateElement = document.createElement("h5");
-						const hallElement = document.createElement("h5");
-						const slotElement = document.createElement("h5");
-						const brElement = document.createElement("br");
+        fetch(`http://3.90.205.148/movies/${movieId}`)
+          .then((response) => response.json())
+          .then((movieDetails) => {
+            const movieTitle = movieDetails[0].title;
+            const posterPath = movieDetails[0].posterLink;
 
-						fetch(`https://image.tmdb.org/t/p/w500/${posterPath}`)
-							.then((response) => response.blob())
-							.then((moviePicture) => {
-								var objectURL = URL.createObjectURL(moviePicture);
-								const movie_img_element = document.createElement("img");
-								movie_img_element.setAttribute("src", `${objectURL}`);
-								movie_img_element.style.width = "300px";
-								movie_img_element.style.height = "300px";
+            //const movieDiv = document.createElement("div");
+            const movieDiv =
+              movieSlot === "Morning"
+                ? document.getElementById("morning")
+                : movieSlot === "Afternoon"
+                ? document.getElementById("afternoon")
+                : document.getElementById("evening");
+            let fieldsets = Array.from(scheduleDetailElement.children);
+            fieldsets.forEach((fieldset) => {
+              fieldset.style.display = "block";
+            });
+            const headingTagElement = document.createElement("h3");
+            const dateElement = document.createElement("p");
+            const hallElement = document.createElement("p");
+            const slotElement = document.createElement("p");
 
-								scheduleDetailElement.appendChild(cardBodyElement);
-								scheduleDetailElement.style.marginLeft = "30%";
-								scheduleDetailElement.style.display = "block";
+            const imageDiv = document.createElement("div");
+            const movie_img_element = document.createElement("img");
+            imageDiv.appendChild(movie_img_element);
+            movie_img_element.setAttribute(
+              "src",
+              `https://image.tmdb.org/t/p/w500/${posterPath}`
+            );
 
-								cardBodyElement.setAttribute("className", "card");
-								cardBodyElement.style.border = "1px solid black";
-								cardBodyElement.style.textAlign = "center";
-								cardBodyElement.style.backgroundColor = "yellow";
-								cardBodyElement.style.width = "80%";
-								cardBodyElement.style.padding = "5%";
+            scheduleDetailElement.appendChild(movieDiv);
 
-								headingTagElement.innerHTML = movieTitle;
-								dateElement.innerHTML = "Date: " + showDate;
-								hallElement.innerHTML = "Hall: " + showHallName;
-								slotElement.innerHTML = "Time: " + showSlotName;
+            headingTagElement.innerHTML = movieTitle;
+            dateElement.innerHTML = "Date: " + movieDate;
+            hallElement.innerHTML = "Hall: " + movieHall;
+            slotElement.innerHTML = "Time: " + movieSlot;
 
-								cardBodyElement.append(
-									headingTagElement,
-									movie_img_element,
-									dateElement,
-									hallElement,
-									slotElement
-								);
-								scheduleDetailElement.appendChild(brElement);
-							});
-					});
-			});
-		});
+            movieDiv.append(
+              headingTagElement,
+              imageDiv,
+              dateElement,
+              hallElement,
+              slotElement
+            );
+          });
+      });
+    });
 };

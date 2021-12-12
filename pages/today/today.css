@@ -1,5 +1,20 @@
 .card {
-	display: auto;
-	text-align: center;
-	box-sizing: border-box;
+  display: auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+fieldset {
+  margin: 30px;
+}
+
+fieldset img {
+  max-width: 50%;
+}
+
+fieldset legend {
+  text-align: center;
+  font-size: 20px;
+  color: rgb(58, 58, 165);
+  padding: 10px;
 }

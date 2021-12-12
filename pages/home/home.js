@@ -7,10 +7,6 @@ export default () => {
   const movieDiv = document.querySelector("#movie-div");
   const login_nav_obj = document.querySelector("#loginLink");
 
-  const headerTag_element = document.querySelector(".headder_tag");
-
-  const message_displayObj = document.querySelector(".confirmation_message");
-
   // user
   "username" in localStorage
     ? (login_nav_obj.innerHTML = localStorage["username"] + " Logout")
