@@ -6,7 +6,7 @@ Adrian:-	https://github.com/adrian52x
 Dominic:-	https://github.com/Sintry1
 Karolina:-	https://github.com/shpomp
 Krishna Prasad Khanal:-	https://github.com/KrishnaKEA
-Omar S. Farah:-	https://github.com/OmarExpo
+Omar:-	https://github.com/OmarExpo
 
 
 <p style="font-size:20px">Here is our 1st Sprint release as of 05/12</p> 
