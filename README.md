@@ -39,8 +39,8 @@ The design is simple and minimalistic in order for the web app to be intuitiv to
 The specific design choices we made were a clean layout with few elements and readable font sizes.
 
 
-For production deployment, here is our <strong>surge_sh</strong> link: http://difficult-popcorn.surge.sh/
-Second sprint deployment Link : http://kodak-cinema.surge.sh/ 
+For the first sprint deployment, here is our <strong>surge_sh</strong> link: http://difficult-popcorn.surge.sh/
+Second sprint deployment Link : http://frontend-cinema-kodak.surge.sh/
 
  <strong>Note</strong>: 
  
