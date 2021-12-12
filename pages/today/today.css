@@ -1,20 +1,28 @@
-.card {
-  display: auto;
-  text-align: center;
-  box-sizing: border-box;
+fieldset,
+fieldset > div {
+  display: grid;
+  justify-content: center;
+  margin: 30px;
+  background-color: rgba(206, 213, 235, 0.534);
+  border-radius: 5px;
+  border: none;
 }
 
-fieldset {
-  margin: 30px;
+fieldset > div {
+  width: 50vw;
+  text-align: center;
 }
 
 fieldset img {
-  max-width: 50%;
+  max-width: 45vw;
+  border-radius: 5px;
 }
 
 fieldset legend {
-  text-align: center;
+  background-color: rgb(156, 154, 162);
+  border-radius: 5px;
+  text-align: right;
   font-size: 20px;
-  color: rgb(58, 58, 165);
+  color: rgba(206, 213, 235, 0.534);
   padding: 10px;
 }

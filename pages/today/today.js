@@ -16,8 +16,7 @@ export default () => {
             const movieTitle = movieDetails[0].title;
             const posterPath = movieDetails[0].posterLink;
 
-            //const movieDiv = document.createElement("div");
-            const movieDiv =
+            const fieldsetBySlot =
               movieSlot === "Morning"
                 ? document.getElementById("morning")
                 : movieSlot === "Afternoon"
@@ -27,6 +26,7 @@ export default () => {
             fieldsets.forEach((fieldset) => {
               fieldset.style.display = "block";
             });
+            const movieDiv = document.createElement("div");
             const headingTagElement = document.createElement("h3");
             const dateElement = document.createElement("p");
             const hallElement = document.createElement("p");
@@ -43,9 +43,9 @@ export default () => {
             scheduleDetailElement.appendChild(movieDiv);
 
             headingTagElement.innerHTML = movieTitle;
-            dateElement.innerHTML = "Date: " + movieDate;
-            hallElement.innerHTML = "Hall: " + movieHall;
-            slotElement.innerHTML = "Time: " + movieSlot;
+            dateElement.innerHTML = movieDate;
+            hallElement.innerHTML = "Hall " + movieHall;
+            slotElement.innerHTML = movieSlot;
 
             movieDiv.append(
               headingTagElement,
@@ -54,6 +54,7 @@ export default () => {
               hallElement,
               slotElement
             );
+            fieldsetBySlot.appendChild(movieDiv);
           });
       });
     });
