@@ -267,7 +267,7 @@ function createSeatsArrayFromApi(
                 });
             }
           } else {
-            alert("please login first......");
+            alert("Please login first......");
           }
         });
       });
