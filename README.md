@@ -40,7 +40,7 @@ The specific design choices we made were a clean layout with few elements and re
 
 
 For the first sprint deployment, here is our <strong>surge_sh</strong> link: http://difficult-popcorn.surge.sh/
-Second sprint deployment Link : http://frontend-cinema-kodak.surge.sh/
+Second sprint deployment Link : http://kodak-movie.surge.sh/
 
  <strong>Note</strong>: 
  
