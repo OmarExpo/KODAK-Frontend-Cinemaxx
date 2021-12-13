@@ -22,7 +22,7 @@ You need git to clone both below repositories. You can get git from http://git-s
 <br/>
 The frontend is running here: https://github.com/OmarExpo/KODAK-Frontend-Cinemaxx
 
-The GitHub link code for the backend api can be found here: https://github.com/adrian52x/cinema-app/tree/master/src/main/java/kodak/cinemaapp
+The GitHub link code for the backend api can be found here: https://github.com/adrian52x/cinema-app
 
 
 <br/>
