@@ -25,7 +25,6 @@ export default (auth) => {
 		const promise = auth
 			.createUserWithEmailAndPassword(useremail.value, userpassword.value)
 			.then((cred) => {
-				//alert("user created, yay! :)");
 				savetoDatabase(
 					cred.user.uid,
 					first_name.value,
@@ -45,12 +44,11 @@ export default (auth) => {
 				addUser(data);
 			})
 			.then(() => {
-				//	alert("successfully created user and its database.");
 				window.location.reload();
 			});
 
 		promise.catch((e) => alert(e.message));
-		alert("SignUp Successfully");
+		alert("Sign Up Successful");
 	}
 
 	//signIN function

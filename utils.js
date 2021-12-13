@@ -4,6 +4,6 @@ export default {
 		localStorage.clear();
 		window.location = "/";
 
-		alert("SignOut Successfully from System");
+		alert("Successfully signed out");
 	},
 };
